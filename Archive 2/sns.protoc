@@ -1,0 +1,26 @@
+service socialNetwork {
+  rpc follow (followRequest) returns (reqResponse);
+  rpc unfollow (followRequest) returns (reqResponse);
+  rpc list (user) returns (followersList);
+}
+
+message reqResponse{
+    bool success;
+}
+
+message followersList {
+    int followers[20];
+}
+
+message user {
+    int userId = 1;
+}
+
+message followRequest {
+  int followee = 1;
+  int follower = 2;
+}
+
+message status {
+    string reply = 1;
+}
