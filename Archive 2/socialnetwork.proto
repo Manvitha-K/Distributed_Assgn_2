@@ -1,0 +1,29 @@
+syntax= "proto3";
+package socialnetwork;
+
+service SocialNetwork {
+  rpc follow (followRequest) returns (reqResponse);
+  rpc unfollow (followRequest) returns (reqResponse);
+  rpc list (user) returns (followersList);
+}
+
+message reqResponse{
+    bool success = 1;
+}
+
+message followersList {
+    repeated int32 followers = 1;
+}
+
+message user {
+    int32 userId = 1;
+}
+
+message followRequest {
+  int32 followee = 1;
+  int32 follower = 2;
+}
+
+message status {
+    string reply = 1;
+}

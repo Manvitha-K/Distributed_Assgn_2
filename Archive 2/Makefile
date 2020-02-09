@@ -32,16 +32,16 @@ PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
 
-PROTOS_PATH = ../../protos
+PROTOS_PATH = ./
 
 vpath %.proto $(PROTOS_PATH)
 
 all: system-check tsc tsd
 
-fbc: socialnetwork.pb.o socialnetwork.grpc.pb.o tsc.o
+tsc: socialnetwork.pb.o socialnetwork.grpc.pb.o tsc.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-fbsd: socialnetwork.pb.o socialnetwork.grpc.pb.o tsd.o
+tsd: socialnetwork.pb.o socialnetwork.grpc.pb.o tsd.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
 %.grpc.pb.cc: %.proto
@@ -51,7 +51,7 @@ fbsd: socialnetwork.pb.o socialnetwork.grpc.pb.o tsd.o
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h fbc fbsd
+	rm -f *.o *.pb.cc *.pb.h tsc tsd
 
 
 # The following is to test your system and ensure a smoother experience.
