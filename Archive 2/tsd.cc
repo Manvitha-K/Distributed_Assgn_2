@@ -16,6 +16,10 @@ using socialnetwork::followRequest;
 using socialnetwork::status;
 
 class chatServiceImplementation final: public SocialNetwork::Service{
+	private:
+	Db database;
+
+	public:
 	Status follow(
 		ServerContext* context,
 		const followRequest* request,
@@ -23,12 +27,11 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 		)override{
 			std::string followeeId = request->followee;
 			std::string followerId = request->follower;
-			Db database;
+			
 			database.Follow(followeeId, followerId);
 			return Status::OK; 
 		}
 };
-
 
 
 void Run() {

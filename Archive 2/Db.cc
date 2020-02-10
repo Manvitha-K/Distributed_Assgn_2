@@ -1,18 +1,8 @@
 #include "Db.h"
 
-std::string user_table_name = "USERS";
-std::string followers_table_name = "FOLLOWERS"; 
-
-    //bool registerUser(std::string UserName);
-    //std::vector<std::string> listAllUsers();
-    //std::vector<std::string> fetchAllFollowers(std::string UserName);
-    //std::vector<std::string> followingList(std::string UserName);
-    //bool checkUserExistence(std::string UserName);
-    bool dataBaseCreation();
-    //bool Follow(std::string user, std::string follows);
-    //void createUsersTable();
-    //void createFollowersTable();
-
+Db::Db(sqlite3* db){
+    int rc = sqlite3_open_v2("./socialnetwork.db", &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX, NULL);  
+}
 
 sqlite3* openDataBaseConnection(sqlite3* db){
     int rc = sqlite3_open_v2("./socialnetwork.db", &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX, NULL);
@@ -59,10 +49,9 @@ static int checkUserExistenceCallback(void* existence, int colcount, char **data
 bool Db::checkUserExistence(std::string username){
     sqlite3* db = openDataBaseConnection(db);
     char* zErrMsg = 0;
-    char* sqlQuery;
     bool exist = false;
-    sqlQuery = "SELECT * from USERS WHERE NAME = +\"" + username + "\";";                              
-    int rc = sqlite3_exec(db, sqlQuery, checkUserExistenceCallback, (void *)&exist, &zErrMsg);
+    std::string sqlQuery = "SELECT * from USERS WHERE NAME = \"" + username + "\";";                              
+    int rc = sqlite3_exec(db, sqlQuery.c_str(), checkUserExistenceCallback, (void *)&exist, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
@@ -72,15 +61,14 @@ bool Db::checkUserExistence(std::string username){
 
 bool Db::registerUser(std::string UserName){
     char* zErrMsg = 0;
-    char* sqlQuery;
     bool alreadyExists = checkUserExistence(UserName);
     if(alreadyExists == true){
         return false;
     }
     sqlite3* db = openDataBaseConnection(db);
-    char* sqlQuery = "INSERT INTO USERS (NAME) " \
-                      "VALUES( +\""+ UserName + "\");";
-    int rc = sqlite3_exec(db, sqlQuery, NULL, 0, &zErrMsg);
+    std::string sqlQuery = "INSERT INTO USERS (NAME) " \
+                      "VALUES(\""+ UserName + "\");";
+    int rc = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
@@ -94,15 +82,14 @@ static int fetchFollowersCallback(void* followersList, int colcount, char **data
 }
 
 std::vector<std::string> Db::fetchAllFollowers(std::string UserName){
-    char* sqlQuery;
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
     std::vector<std::string> followersList;
     if(!db){
         return followersList;
     } 
-    sqlQuery = "SELECT * from FOLLOWERS WHERE FOLLOWS = +\""+UserName+ "\";";
-    int rc = sqlite3_exec(db, sqlQuery, fetchUsersCallback, (void *)&followersList, &zErrMsg);
+    std::string sqlQuery =("SELECT * from FOLLOWERS WHERE FOLLOWS =\"" + UserName + "\";").c_str();
+    int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, (void *)&followersList, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
@@ -116,15 +103,14 @@ static int fetchFollowingCallback(void* followingList, int colcount, char **data
 }
 
 std::vector<std::string> Db::followingList(std::string UserName){
-    char* sqlQuery;
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
     std::vector<std::string> followeesList;
     if(!db){
         return followeesList;
     } 
-    sqlQuery = "SELECT * from FOLLOWERS WHERE NAME = +\""+UserName+ "\";";
-    int rc = sqlite3_exec(db, sqlQuery, fetchUsersCallback, (void *)&followeesList, &zErrMsg);
+    std::string sqlQuery = "SELECT * from FOLLOWERS WHERE NAME = \""+UserName+ "\";";
+    int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, (void *)&followeesList, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
@@ -170,9 +156,9 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
     sqlite3* db = openDataBaseConnection(db);
     std::vector<std::string> followeesList;
     if(db){
-        char * sqlQuery = "SELECT * from FOLLOWERS WHERE NAME = +\""+UserName+ "\" \
-                                            AND FOLLOWS = +\"" + followee +"\";";
-        int rc = sqlite3_exec(db, sqlQuery, checkAlreadyFollowingCallback, (void *)&follows, &zErrMsg);
+        std::string sqlQuery = "SELECT * from FOLLOWERS WHERE NAME = \""+ user + "\" \
+                                            AND FOLLOWS = \"" + followee +"\";";
+        int rc = sqlite3_exec(db, sqlQuery.c_str(), checkAlreadyFollowingCallback, (void *)&follows, &zErrMsg);
         if (rc != SQLITE_OK){
             sqlite3_free(zErrMsg);
         }
@@ -186,9 +172,9 @@ bool Db::Follow(std::string user, std::string follows){
     if(following == false){
         char* zErrMsg = 0;
         sqlite3* db = openDataBaseConnection(db);
-        char * sqlQuery = "INSERT INTO FOLLOWERS (NAME,FOLLOWS) \
-                            VALUES( +\"" + user + "\",  +\"" + follows + "\");";
-        int rc = sqlite3_exec(db, sqlQuery, NULL, 0, &zErrMsg);
+        std::string sqlQuery = "INSERT INTO FOLLOWERS (NAME,FOLLOWS) \
+                            VALUES( \"" + user + "\",  +\"" + follows + "\");";
+        int rc = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK){
             sqlite3_free(zErrMsg);
         }
@@ -202,9 +188,9 @@ bool Db::unFollow(std::string user, std::string follows){
     if(following == true){
         char* zErrMsg = 0;
         sqlite3* db = openDataBaseConnection(db);
-        char * sqlQuery =  "DELETE FROM FOLLOWERS WHERE NAME = +\"" +user + "\" +  \
+        std::string sqlQuery =  "DELETE FROM FOLLOWERS WHERE NAME = +\"" +user + "\" +  \
                             AND FOLLOWS = + \"" + follows + "\";";
-        int rc = sqlite3_exec(db, sqlQuery, NULL, 0, &zErrMsg);
+        int rc = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK){
             sqlite3_free(zErrMsg);
         }

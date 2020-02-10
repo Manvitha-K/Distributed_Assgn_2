@@ -8,27 +8,26 @@
 #define Db_h
 
 class Db{
+    //std::string user_table_name = "USERS";
+    //std::string followers_table_name = "FOLLOWERS"; 
 
-    std::vector<std::string> userList;
+    public:
+        Db(sqlite3* db);
+        std::vector<std::string> userList;
+        bool dataBaseCreation();
+        void createUsersTable();
+        void createFollowersTable();
 
-    std::string user_table_name = "USERS";
-    std::string followers_table_name = "FOLLOWERS"; 
 
-    bool dataBaseCreation();
-    void createUsersTable();
-    void createFollowersTable();
+        bool registerUser(std::string UserName);
+        bool Follow(std::string user, std::string follows);
+        bool unFollow(std::string user, std::string follows);
 
-    bool registerUser(std::string UserName);
-    bool Follow(std::string user, std::string follows);
-    bool unFollow(std::string user, std::string follows);
-
-    std::vector<std::string> listAllUsers();
-    std::vector<std::string> fetchAllFollowers(std::string UserName);
-    std::vector<std::string> followingList(std::string UserName);
-    
-    bool checkUserExistence(std::string UserName);
-    bool checkAlreadyFollowing(std::string user, std::string followee);
-    
-
+        std::vector<std::string> listAllUsers();
+        std::vector<std::string> fetchAllFollowers(std::string UserName);
+        std::vector<std::string> followingList(std::string UserName);
+        
+        bool checkUserExistence(std::string UserName);
+        bool checkAlreadyFollowing(std::string user, std::string followee);
 };
 #endif
