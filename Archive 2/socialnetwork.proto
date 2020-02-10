@@ -5,7 +5,6 @@ service SocialNetwork {
   rpc follow (followRequest) returns (reqResponse);
   rpc unfollow (followRequest) returns (reqResponse);
   rpc list (user) returns (followersList);
-  rpc register(user) returns (reqResponse);
 }
 
 message reqResponse{
