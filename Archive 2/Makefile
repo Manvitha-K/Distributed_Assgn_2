@@ -38,10 +38,13 @@ vpath %.proto $(PROTOS_PATH)
 
 all: system-check tsc tsd
 
+sqlite3.o: sqlite/sqlite3.c
+	gcc -o $@ -c $^
+
 tsc: socialnetwork.pb.o socialnetwork.grpc.pb.o tsc.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-tsd: socialnetwork.pb.o socialnetwork.grpc.pb.o tsd.o
+tsd: socialnetwork.pb.o socialnetwork.grpc.pb.o sqlite3.o Db.o tsd.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
 %.grpc.pb.cc: %.proto
