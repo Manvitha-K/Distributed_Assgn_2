@@ -262,24 +262,33 @@ class followersList : public ::google::protobuf::Message /* @@protoc_insertion_p
 
   // accessors -------------------------------------------------------
 
-  // repeated int32 followers = 1;
+  // repeated string followers = 1;
   int followers_size() const;
   void clear_followers();
   static const int kFollowersFieldNumber = 1;
-  ::google::protobuf::int32 followers(int index) const;
-  void set_followers(int index, ::google::protobuf::int32 value);
-  void add_followers(::google::protobuf::int32 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-      followers() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-      mutable_followers();
+  const ::std::string& followers(int index) const;
+  ::std::string* mutable_followers(int index);
+  void set_followers(int index, const ::std::string& value);
+  #if LANG_CXX11
+  void set_followers(int index, ::std::string&& value);
+  #endif
+  void set_followers(int index, const char* value);
+  void set_followers(int index, const char* value, size_t size);
+  ::std::string* add_followers();
+  void add_followers(const ::std::string& value);
+  #if LANG_CXX11
+  void add_followers(::std::string&& value);
+  #endif
+  void add_followers(const char* value);
+  void add_followers(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& followers() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_followers();
 
   // @@protoc_insertion_point(class_scope:socialnetwork.followersList)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > followers_;
-  mutable int _followers_cached_byte_size_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> followers_;
   mutable int _cached_size_;
   friend struct ::protobuf_socialnetwork_2eproto::TableStruct;
   friend void ::protobuf_socialnetwork_2eproto::InitDefaultsfollowersListImpl();
@@ -368,17 +377,25 @@ class user : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   // accessors -------------------------------------------------------
 
-  // int32 userId = 1;
+  // string userId = 1;
   void clear_userid();
   static const int kUserIdFieldNumber = 1;
-  ::google::protobuf::int32 userid() const;
-  void set_userid(::google::protobuf::int32 value);
+  const ::std::string& userid() const;
+  void set_userid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_userid(::std::string&& value);
+  #endif
+  void set_userid(const char* value);
+  void set_userid(const char* value, size_t size);
+  ::std::string* mutable_userid();
+  ::std::string* release_userid();
+  void set_allocated_userid(::std::string* userid);
 
   // @@protoc_insertion_point(class_scope:socialnetwork.user)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::int32 userid_;
+  ::google::protobuf::internal::ArenaStringPtr userid_;
   mutable int _cached_size_;
   friend struct ::protobuf_socialnetwork_2eproto::TableStruct;
   friend void ::protobuf_socialnetwork_2eproto::InitDefaultsuserImpl();
@@ -467,24 +484,40 @@ class followRequest : public ::google::protobuf::Message /* @@protoc_insertion_p
 
   // accessors -------------------------------------------------------
 
-  // int32 followee = 1;
+  // string followee = 1;
   void clear_followee();
   static const int kFolloweeFieldNumber = 1;
-  ::google::protobuf::int32 followee() const;
-  void set_followee(::google::protobuf::int32 value);
+  const ::std::string& followee() const;
+  void set_followee(const ::std::string& value);
+  #if LANG_CXX11
+  void set_followee(::std::string&& value);
+  #endif
+  void set_followee(const char* value);
+  void set_followee(const char* value, size_t size);
+  ::std::string* mutable_followee();
+  ::std::string* release_followee();
+  void set_allocated_followee(::std::string* followee);
 
-  // int32 follower = 2;
+  // string follower = 2;
   void clear_follower();
   static const int kFollowerFieldNumber = 2;
-  ::google::protobuf::int32 follower() const;
-  void set_follower(::google::protobuf::int32 value);
+  const ::std::string& follower() const;
+  void set_follower(const ::std::string& value);
+  #if LANG_CXX11
+  void set_follower(::std::string&& value);
+  #endif
+  void set_follower(const char* value);
+  void set_follower(const char* value, size_t size);
+  ::std::string* mutable_follower();
+  ::std::string* release_follower();
+  void set_allocated_follower(::std::string* follower);
 
   // @@protoc_insertion_point(class_scope:socialnetwork.followRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::int32 followee_;
-  ::google::protobuf::int32 follower_;
+  ::google::protobuf::internal::ArenaStringPtr followee_;
+  ::google::protobuf::internal::ArenaStringPtr follower_;
   mutable int _cached_size_;
   friend struct ::protobuf_socialnetwork_2eproto::TableStruct;
   friend void ::protobuf_socialnetwork_2eproto::InitDefaultsfollowRequestImpl();
@@ -625,31 +658,70 @@ inline void reqResponse::set_success(bool value) {
 
 // followersList
 
-// repeated int32 followers = 1;
+// repeated string followers = 1;
 inline int followersList::followers_size() const {
   return followers_.size();
 }
 inline void followersList::clear_followers() {
   followers_.Clear();
 }
-inline ::google::protobuf::int32 followersList::followers(int index) const {
+inline const ::std::string& followersList::followers(int index) const {
   // @@protoc_insertion_point(field_get:socialnetwork.followersList.followers)
   return followers_.Get(index);
 }
-inline void followersList::set_followers(int index, ::google::protobuf::int32 value) {
-  followers_.Set(index, value);
-  // @@protoc_insertion_point(field_set:socialnetwork.followersList.followers)
+inline ::std::string* followersList::mutable_followers(int index) {
+  // @@protoc_insertion_point(field_mutable:socialnetwork.followersList.followers)
+  return followers_.Mutable(index);
 }
-inline void followersList::add_followers(::google::protobuf::int32 value) {
-  followers_.Add(value);
+inline void followersList::set_followers(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:socialnetwork.followersList.followers)
+  followers_.Mutable(index)->assign(value);
+}
+#if LANG_CXX11
+inline void followersList::set_followers(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:socialnetwork.followersList.followers)
+  followers_.Mutable(index)->assign(std::move(value));
+}
+#endif
+inline void followersList::set_followers(int index, const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  followers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:socialnetwork.followersList.followers)
+}
+inline void followersList::set_followers(int index, const char* value, size_t size) {
+  followers_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:socialnetwork.followersList.followers)
+}
+inline ::std::string* followersList::add_followers() {
+  // @@protoc_insertion_point(field_add_mutable:socialnetwork.followersList.followers)
+  return followers_.Add();
+}
+inline void followersList::add_followers(const ::std::string& value) {
+  followers_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:socialnetwork.followersList.followers)
 }
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+#if LANG_CXX11
+inline void followersList::add_followers(::std::string&& value) {
+  followers_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:socialnetwork.followersList.followers)
+}
+#endif
+inline void followersList::add_followers(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  followers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:socialnetwork.followersList.followers)
+}
+inline void followersList::add_followers(const char* value, size_t size) {
+  followers_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:socialnetwork.followersList.followers)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
 followersList::followers() const {
   // @@protoc_insertion_point(field_list:socialnetwork.followersList.followers)
   return followers_;
 }
-inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
 followersList::mutable_followers() {
   // @@protoc_insertion_point(field_mutable_list:socialnetwork.followersList.followers)
   return &followers_;
@@ -659,50 +731,167 @@ followersList::mutable_followers() {
 
 // user
 
-// int32 userId = 1;
+// string userId = 1;
 inline void user::clear_userid() {
-  userid_ = 0;
+  userid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::google::protobuf::int32 user::userid() const {
+inline const ::std::string& user::userid() const {
   // @@protoc_insertion_point(field_get:socialnetwork.user.userId)
-  return userid_;
+  return userid_.GetNoArena();
 }
-inline void user::set_userid(::google::protobuf::int32 value) {
+inline void user::set_userid(const ::std::string& value) {
   
-  userid_ = value;
+  userid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:socialnetwork.user.userId)
+}
+#if LANG_CXX11
+inline void user::set_userid(::std::string&& value) {
+  
+  userid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:socialnetwork.user.userId)
+}
+#endif
+inline void user::set_userid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  userid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:socialnetwork.user.userId)
+}
+inline void user::set_userid(const char* value, size_t size) {
+  
+  userid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:socialnetwork.user.userId)
+}
+inline ::std::string* user::mutable_userid() {
+  
+  // @@protoc_insertion_point(field_mutable:socialnetwork.user.userId)
+  return userid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* user::release_userid() {
+  // @@protoc_insertion_point(field_release:socialnetwork.user.userId)
+  
+  return userid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void user::set_allocated_userid(::std::string* userid) {
+  if (userid != NULL) {
+    
+  } else {
+    
+  }
+  userid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), userid);
+  // @@protoc_insertion_point(field_set_allocated:socialnetwork.user.userId)
 }
 
 // -------------------------------------------------------------------
 
 // followRequest
 
-// int32 followee = 1;
+// string followee = 1;
 inline void followRequest::clear_followee() {
-  followee_ = 0;
+  followee_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::google::protobuf::int32 followRequest::followee() const {
+inline const ::std::string& followRequest::followee() const {
   // @@protoc_insertion_point(field_get:socialnetwork.followRequest.followee)
-  return followee_;
+  return followee_.GetNoArena();
 }
-inline void followRequest::set_followee(::google::protobuf::int32 value) {
+inline void followRequest::set_followee(const ::std::string& value) {
   
-  followee_ = value;
+  followee_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:socialnetwork.followRequest.followee)
 }
-
-// int32 follower = 2;
-inline void followRequest::clear_follower() {
-  follower_ = 0;
-}
-inline ::google::protobuf::int32 followRequest::follower() const {
-  // @@protoc_insertion_point(field_get:socialnetwork.followRequest.follower)
-  return follower_;
-}
-inline void followRequest::set_follower(::google::protobuf::int32 value) {
+#if LANG_CXX11
+inline void followRequest::set_followee(::std::string&& value) {
   
-  follower_ = value;
+  followee_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:socialnetwork.followRequest.followee)
+}
+#endif
+inline void followRequest::set_followee(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  followee_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:socialnetwork.followRequest.followee)
+}
+inline void followRequest::set_followee(const char* value, size_t size) {
+  
+  followee_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:socialnetwork.followRequest.followee)
+}
+inline ::std::string* followRequest::mutable_followee() {
+  
+  // @@protoc_insertion_point(field_mutable:socialnetwork.followRequest.followee)
+  return followee_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* followRequest::release_followee() {
+  // @@protoc_insertion_point(field_release:socialnetwork.followRequest.followee)
+  
+  return followee_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void followRequest::set_allocated_followee(::std::string* followee) {
+  if (followee != NULL) {
+    
+  } else {
+    
+  }
+  followee_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), followee);
+  // @@protoc_insertion_point(field_set_allocated:socialnetwork.followRequest.followee)
+}
+
+// string follower = 2;
+inline void followRequest::clear_follower() {
+  follower_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& followRequest::follower() const {
+  // @@protoc_insertion_point(field_get:socialnetwork.followRequest.follower)
+  return follower_.GetNoArena();
+}
+inline void followRequest::set_follower(const ::std::string& value) {
+  
+  follower_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:socialnetwork.followRequest.follower)
+}
+#if LANG_CXX11
+inline void followRequest::set_follower(::std::string&& value) {
+  
+  follower_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:socialnetwork.followRequest.follower)
+}
+#endif
+inline void followRequest::set_follower(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  follower_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:socialnetwork.followRequest.follower)
+}
+inline void followRequest::set_follower(const char* value, size_t size) {
+  
+  follower_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:socialnetwork.followRequest.follower)
+}
+inline ::std::string* followRequest::mutable_follower() {
+  
+  // @@protoc_insertion_point(field_mutable:socialnetwork.followRequest.follower)
+  return follower_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* followRequest::release_follower() {
+  // @@protoc_insertion_point(field_release:socialnetwork.followRequest.follower)
+  
+  return follower_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void followRequest::set_allocated_follower(::std::string* follower) {
+  if (follower != NULL) {
+    
+  } else {
+    
+  }
+  follower_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), follower);
+  // @@protoc_insertion_point(field_set_allocated:socialnetwork.followRequest.follower)
 }
 
 // -------------------------------------------------------------------
