@@ -47,12 +47,12 @@ class SocialNetwork final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::reqResponse>> PrepareAsyncunfollow(::grpc::ClientContext* context, const ::socialnetwork::followRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::reqResponse>>(PrepareAsyncunfollowRaw(context, request, cq));
     }
-    virtual ::grpc::Status list(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::socialnetwork::followersList* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::followersList>> Asynclist(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::followersList>>(AsynclistRaw(context, request, cq));
+    virtual ::grpc::Status list(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::socialnetwork::allUsers* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::allUsers>> Asynclist(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::allUsers>>(AsynclistRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::followersList>> PrepareAsynclist(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::followersList>>(PrepareAsynclistRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::allUsers>> PrepareAsynclist(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::allUsers>>(PrepareAsynclistRaw(context, request, cq));
     }
     virtual ::grpc::Status registerUser(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::socialnetwork::reqResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::reqResponse>> AsyncregisterUser(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
@@ -66,8 +66,8 @@ class SocialNetwork final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::reqResponse>* PrepareAsyncfollowRaw(::grpc::ClientContext* context, const ::socialnetwork::followRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::reqResponse>* AsyncunfollowRaw(::grpc::ClientContext* context, const ::socialnetwork::followRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::reqResponse>* PrepareAsyncunfollowRaw(::grpc::ClientContext* context, const ::socialnetwork::followRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::followersList>* AsynclistRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::followersList>* PrepareAsynclistRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::allUsers>* AsynclistRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::allUsers>* PrepareAsynclistRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::reqResponse>* AsyncregisterUserRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::socialnetwork::reqResponse>* PrepareAsyncregisterUserRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) = 0;
   };
@@ -88,12 +88,12 @@ class SocialNetwork final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::reqResponse>> PrepareAsyncunfollow(::grpc::ClientContext* context, const ::socialnetwork::followRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::reqResponse>>(PrepareAsyncunfollowRaw(context, request, cq));
     }
-    ::grpc::Status list(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::socialnetwork::followersList* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::followersList>> Asynclist(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::followersList>>(AsynclistRaw(context, request, cq));
+    ::grpc::Status list(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::socialnetwork::allUsers* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::allUsers>> Asynclist(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::allUsers>>(AsynclistRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::followersList>> PrepareAsynclist(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::followersList>>(PrepareAsynclistRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::allUsers>> PrepareAsynclist(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::allUsers>>(PrepareAsynclistRaw(context, request, cq));
     }
     ::grpc::Status registerUser(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::socialnetwork::reqResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::socialnetwork::reqResponse>> AsyncregisterUser(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) {
@@ -109,8 +109,8 @@ class SocialNetwork final {
     ::grpc::ClientAsyncResponseReader< ::socialnetwork::reqResponse>* PrepareAsyncfollowRaw(::grpc::ClientContext* context, const ::socialnetwork::followRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::socialnetwork::reqResponse>* AsyncunfollowRaw(::grpc::ClientContext* context, const ::socialnetwork::followRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::socialnetwork::reqResponse>* PrepareAsyncunfollowRaw(::grpc::ClientContext* context, const ::socialnetwork::followRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::socialnetwork::followersList>* AsynclistRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::socialnetwork::followersList>* PrepareAsynclistRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::socialnetwork::allUsers>* AsynclistRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::socialnetwork::allUsers>* PrepareAsynclistRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::socialnetwork::reqResponse>* AsyncregisterUserRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::socialnetwork::reqResponse>* PrepareAsyncregisterUserRaw(::grpc::ClientContext* context, const ::socialnetwork::user& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_follow_;
@@ -126,7 +126,7 @@ class SocialNetwork final {
     virtual ~Service();
     virtual ::grpc::Status follow(::grpc::ServerContext* context, const ::socialnetwork::followRequest* request, ::socialnetwork::reqResponse* response);
     virtual ::grpc::Status unfollow(::grpc::ServerContext* context, const ::socialnetwork::followRequest* request, ::socialnetwork::reqResponse* response);
-    virtual ::grpc::Status list(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::followersList* response);
+    virtual ::grpc::Status list(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::allUsers* response);
     virtual ::grpc::Status registerUser(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::reqResponse* response);
   };
   template <class BaseClass>
@@ -181,11 +181,11 @@ class SocialNetwork final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status list(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::followersList* response) final override {
+    ::grpc::Status list(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::allUsers* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void Requestlist(::grpc::ServerContext* context, ::socialnetwork::user* request, ::grpc::ServerAsyncResponseWriter< ::socialnetwork::followersList>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestlist(::grpc::ServerContext* context, ::socialnetwork::user* request, ::grpc::ServerAsyncResponseWriter< ::socialnetwork::allUsers>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -256,7 +256,7 @@ class SocialNetwork final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status list(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::followersList* response) final override {
+    ::grpc::Status list(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::allUsers* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -325,18 +325,18 @@ class SocialNetwork final {
    public:
     WithStreamedUnaryMethod_list() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::socialnetwork::user, ::socialnetwork::followersList>(std::bind(&WithStreamedUnaryMethod_list<BaseClass>::Streamedlist, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler< ::socialnetwork::user, ::socialnetwork::allUsers>(std::bind(&WithStreamedUnaryMethod_list<BaseClass>::Streamedlist, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_list() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status list(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::followersList* response) final override {
+    ::grpc::Status list(::grpc::ServerContext* context, const ::socialnetwork::user* request, ::socialnetwork::allUsers* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status Streamedlist(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::socialnetwork::user,::socialnetwork::followersList>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedlist(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::socialnetwork::user,::socialnetwork::allUsers>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_registerUser : public BaseClass {
