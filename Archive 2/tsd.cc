@@ -15,17 +15,19 @@ using socialnetwork::followersList;
 using socialnetwork::user;
 using socialnetwork::followRequest;
 using socialnetwork::status;
+using socialnetwork::user;
 
 class chatServiceImplementation final: public SocialNetwork::Service{
-	private:
+	
 		Db database;
 
-	public:
 		sqlite3* Dbobj;
+
+		public:
 		chatServiceImplementation():database(Dbobj){}
 		// Status register(
 		// 	ServerContext* context,
-		// 	user* request,
+		// 	const user* request,
 		// 	reqResponse* reply
 		// )override{
 		// 	std::string userName = request->userId;
