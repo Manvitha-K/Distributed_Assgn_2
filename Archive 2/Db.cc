@@ -2,6 +2,7 @@
 
 Db::Db(sqlite3* db){
     int rc = sqlite3_open_v2("./socialnetwork.db", &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX, NULL);  
+    Db::DatabaseObj = db;
 }
 
 sqlite3* openDataBaseConnection(sqlite3* db){
@@ -27,6 +28,7 @@ std::vector<std::string> Db::listAllUsers(){
     char* sqlQuery;
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
+    //Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
     Db::userList.clear();
     if(!db){
         return userList;
@@ -47,32 +49,35 @@ static int checkUserExistenceCallback(void* existence, int colcount, char **data
 
 
 bool Db::checkUserExistence(std::string username){
-    sqlite3* db = openDataBaseConnection(db);
+    //sqlite3* db = openDataBaseConnection(db);
+    Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
     char* zErrMsg = 0;
     bool exist = false;
     std::string sqlQuery = "SELECT * from USERS WHERE NAME = \"" + username + "\";";                              
-    int rc = sqlite3_exec(db, sqlQuery.c_str(), checkUserExistenceCallback, (void *)&exist, &zErrMsg);
+    int rc = sqlite3_exec(Db::DatabaseObj, sqlQuery.c_str(), checkUserExistenceCallback, (void *)&exist, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
-    closeDataBaseConnection(db);
+    closeDataBaseConnection(Db::DatabaseObj);
     return exist;
 }
 
 bool Db::registerUser(std::string UserName){
     char* zErrMsg = 0;
+    createUsersTable();
     bool alreadyExists = checkUserExistence(UserName);
     if(alreadyExists == true){
         return false;
     }
-    sqlite3* db = openDataBaseConnection(db);
+    //sqlite3* db = openDataBaseConnection(db);
+    Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
     std::string sqlQuery = "INSERT INTO USERS (NAME) " \
                       "VALUES(\""+ UserName + "\");";
-    int rc = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
+    int rc = sqlite3_exec(Db::DatabaseObj, sqlQuery.c_str(), NULL, 0, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
-    closeDataBaseConnection(db);
+    closeDataBaseConnection(Db::DatabaseObj);
     return true;
 }
 

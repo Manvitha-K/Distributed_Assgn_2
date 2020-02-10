@@ -2,6 +2,7 @@
 #include <grpcpp/grpcpp.h>
 #include "socialnetwork.grpc.pb.h"
 #include "Db.h"
+#include <sqlite3.h>
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -17,20 +18,33 @@ using socialnetwork::status;
 
 class chatServiceImplementation final: public SocialNetwork::Service{
 	private:
-	Db database;
+		Db database;
 
 	public:
-	Status follow(
-		ServerContext* context,
-		const followRequest* request,
-		reqResponse* reply
+		sqlite3* Dbobj;
+		chatServiceImplementation():database(Dbobj){}
+		Status register(
+			ServerContext* context,
+			user* request,
+			reqResponse* reply
 		)override{
-			std::string followeeId = request->followee;
-			std::string followerId = request->follower;
-			
-			database.Follow(followeeId, followerId);
-			return Status::OK; 
-		}
+			std::string userName = request->userId;
+			reply.success = database.registerUser(userName);
+			return Status::OK;
+		};
+		
+		
+		Status follow(
+			ServerContext* context,
+			const followRequest* request,
+			reqResponse* reply
+			)override{
+				std::string followeeId = request->followee;
+				std::string followerId = request->follower;
+				
+				database.Follow(followeeId, followerId);
+				return Status::OK; 
+			}
 };
 
 

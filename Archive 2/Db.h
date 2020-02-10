@@ -12,6 +12,7 @@ class Db{
     //std::string followers_table_name = "FOLLOWERS"; 
 
     public:
+        sqlite3* DatabaseObj;
         Db(sqlite3* db);
         std::vector<std::string> userList;
         bool dataBaseCreation();
