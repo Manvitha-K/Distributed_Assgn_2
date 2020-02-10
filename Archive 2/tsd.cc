@@ -25,15 +25,15 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 
 		public:
 		chatServiceImplementation():database(Dbobj){}
-		// Status register(
-		// 	ServerContext* context,
-		// 	const user* request,
-		// 	reqResponse* reply
-		// )override{
-		// 	std::string userName = request->userId;
-		// 	reply.success = database.registerUser(userName);
-		// 	return Status::OK;
-		// };
+		 Status registerUser(
+	 	 	ServerContext* context,
+		 	const user* request,
+		 	reqResponse* reply
+		 )override{
+		 	std::string userName = request->userId;
+		 	reply.success = database.registerUser(userName);
+		 	return Status::OK;
+		}
 		Status follow(
 			ServerContext* context,
 			const followRequest* request,
