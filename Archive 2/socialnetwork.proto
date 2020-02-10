@@ -2,9 +2,10 @@ syntax= "proto3";
 package socialnetwork;
 
 service SocialNetwork {
-  rpc follow (followRequest) returns (reqResponse);
-  rpc unfollow (followRequest) returns (reqResponse);
-  rpc list (user) returns (followersList);
+  rpc follow (followRequest) returns (reqResponse) {}
+  rpc unfollow (followRequest) returns (reqResponse){}
+  rpc list (user) returns (followersList) {}
+  rpc registerUser (user) returns (reqResponse) {}
 }
 
 message reqResponse{
