@@ -4,7 +4,7 @@ package socialnetwork;
 service SocialNetwork {
   rpc follow (followRequest) returns (reqResponse) {}
   rpc unfollow (followRequest) returns (reqResponse){}
-  rpc list (user) returns (followersList) {}
+  rpc list (user) returns (allUsers) {}
   rpc registerUser (user) returns (reqResponse) {}
 }
 
@@ -14,6 +14,11 @@ message reqResponse{
 
 message followersList {
     repeated string followers = 1;
+}
+
+message allUsers {
+  repeated string registeredUsers = 1;
+  repeated string followers = 2;
 }
 
 message user {

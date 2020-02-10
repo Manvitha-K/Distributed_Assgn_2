@@ -16,35 +16,57 @@ using socialnetwork::user;
 using socialnetwork::followRequest;
 using socialnetwork::status;
 using socialnetwork::user;
+using socialnetwork::allUsers;
 
 class chatServiceImplementation final: public SocialNetwork::Service{
-	
-		Db database;
-
-		sqlite3* Dbobj;
+		private:
+			sqlite3* Dbobj;
+			Db database;
 
 		public:
-		chatServiceImplementation():database(Dbobj){}
-		 Status registerUser(
-	 	 	ServerContext* context,
-		 	const user* request,
-		 	reqResponse* reply
-		 )override{
-		 	std::string userName = request->userId;
-		 	reply.success = database.registerUser(userName);
-		 	return Status::OK;
-		}
-		Status follow(
-			ServerContext* context,
-			const followRequest* request,
-			reqResponse* reply
-			){
+			chatServiceImplementation():database(Dbobj){}
+			Status registerUser(
+				ServerContext* context,
+				const user* request,
+				reqResponse* reply
+			)override{
+				std::string userName = request->userId;
+				reply->success = database.registerUser(userName);
+				return Status::OK;
+			}
+			
+			Status list(
+				ServerContext* context,
+				const user* request,
+				allUsers* reply
+				)override{
+					std::string userName = request->userId;
+					reply.registeredUsers = database.listAllUsers();
+					reply.followers = database.fetchAllFollowers(userName);
+					return Status::OK;
+			}
+			Status follow(
+				ServerContext* context,
+				const followRequest* request,
+				reqResponse* reply
+			)override{
 				std::string followeeId = request->followee;
 				std::string followerId = request->follower;
 				
 				database.Follow(followeeId, followerId);
 				return Status::OK; 
 			}
+			Status unfollow(
+				ServerContext* context,
+				const followRequest* request,
+				reqResponse* reply
+			)override{
+				std::string followeeId = request->followee;
+				std::string followerId = request->follower;
+				database.unFollow(followeeId, followerId);
+				return Status::OK;
+			}
+
 };
 
 

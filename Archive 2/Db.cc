@@ -78,6 +78,8 @@ bool Db::registerUser(std::string UserName){
         sqlite3_free(zErrMsg);
     }
     closeDataBaseConnection(Db::DatabaseObj);
+    createFollowersTable();
+    Follow(UserName, UserName);
     return true;
 }
 
