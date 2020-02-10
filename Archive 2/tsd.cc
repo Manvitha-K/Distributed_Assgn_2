@@ -38,7 +38,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 			ServerContext* context,
 			const followRequest* request,
 			reqResponse* reply
-			)override{
+			){
 				std::string followeeId = request->followee;
 				std::string followerId = request->follower;
 				
