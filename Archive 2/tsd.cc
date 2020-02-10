@@ -1,6 +1,7 @@
 #include <string>
 #include <grpcpp/grpcpp.h>
 #include "socialnetwork.grpc.pb.h"
+#include "Db.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -20,9 +21,10 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 		const followRequest* request,
 		reqResponse* reply
 		)override{
-			int followeeId = request->followee;
-			int followerId = request->follower;
-
+			std::string followeeId = request->followee;
+			std::string followerId = request->follower;
+			Db database;
+			database.Follow(followeeId, followerId);
 			return Status::OK; 
 		}
 };

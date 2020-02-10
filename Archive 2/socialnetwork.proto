@@ -12,16 +12,16 @@ message reqResponse{
 }
 
 message followersList {
-    repeated int32 followers = 1;
+    repeated string followers = 1;
 }
 
 message user {
-    int32 userId = 1;
+    string userId = 1;
 }
 
 message followRequest {
-  int32 followee = 1;
-  int32 follower = 2;
+  string followee = 1;
+  string follower = 2;
 }
 
 message status {

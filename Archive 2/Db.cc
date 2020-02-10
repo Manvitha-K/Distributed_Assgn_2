@@ -61,8 +61,7 @@ bool Db::checkUserExistence(std::string username){
     char* zErrMsg = 0;
     char* sqlQuery;
     bool exist = false;
-    sqlQuery = "SELECT * from USERS WHERE NAME = +\"" + username + "\";";
-                                                
+    sqlQuery = "SELECT * from USERS WHERE NAME = +\"" + username + "\";";                              
     int rc = sqlite3_exec(db, sqlQuery, checkUserExistenceCallback, (void *)&exist, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
@@ -80,7 +79,7 @@ bool Db::registerUser(std::string UserName){
     }
     sqlite3* db = openDataBaseConnection(db);
     char* sqlQuery = "INSERT INTO USERS (NAME) " \
-                      "VALUES +\""+ UserName + "\";";
+                      "VALUES( +\""+ UserName + "\");";
     int rc = sqlite3_exec(db, sqlQuery, NULL, 0, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
@@ -134,11 +133,10 @@ std::vector<std::string> Db::followingList(std::string UserName){
 }
 
 void Db::createUsersTable(){
-    char* sqlQuery;
-    char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
     if(db){
-        sqlQuery = "CREATE TABLE [IF NOT EXISTS] USERS (NAME TEXT PRIMARY KEY NOT NULL);";
+        char* zErrMsg = 0;
+        char* sqlQuery = "CREATE TABLE IF NOT EXISTS USERS (NAME TEXT NOT NULL);";
         int rc = sqlite3_exec(db, sqlQuery, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK){
             sqlite3_free(zErrMsg);
@@ -148,12 +146,11 @@ void Db::createUsersTable(){
 }
 
 void Db::createFollowersTable(){
-    char* sqlQuery;
-    char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
     if(db){
-        sqlQuery = "CREATE TABLE [IF NOT EXISTS] FOLLOWERS (NAME TEXT PRIMARY KEY NOT NULL, \
-                                                            FOLLOWS TEXT NOT NULL);";
+        char* zErrMsg = 0;
+        char* sqlQuery = "CREATE TABLE IF NOT EXISTS FOLLOWERS (NAME TEXT NOT NULL, \
+                                                          FOLLOWS TEXT NOT NULL);";
         int rc = sqlite3_exec(db, sqlQuery, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK){
             sqlite3_free(zErrMsg);
@@ -167,7 +164,7 @@ static int checkAlreadyFollowingCallback(void* follows, int colcount, char **dat
     *follow = true;
 }
 
-bool checkAlreadyFollowing(std::string user, std::string followee){
+bool Db::checkAlreadyFollowing(std::string user, std::string followee){
     bool follows = false;
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
