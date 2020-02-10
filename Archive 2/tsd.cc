@@ -1,5 +1,5 @@
 #include <string>
-#include <grpcpp/grpcpp.h>
+#include <grpc++/grpc++.h>
 #include "socialnetwork.grpc.pb.h"
 #include "Db.h"
 #include <sqlite3.h>
