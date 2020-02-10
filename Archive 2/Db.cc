@@ -25,7 +25,6 @@ static int fetchUsersCallback(void* userList, int colcount, char **data, char **
 }
 
 std::vector<std::string> Db::listAllUsers(){
-    char* sqlQuery;
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
     //Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
@@ -33,8 +32,8 @@ std::vector<std::string> Db::listAllUsers(){
     if(!db){
         return userList;
     } 
-    sqlQuery = "SELECT * from USERS;";
-    int rc = sqlite3_exec(db, sqlQuery, fetchUsersCallback, (void *)&Db::userList, &zErrMsg);
+    std::string sqlQuery = "SELECT * from USERS;";
+    int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, (void *)&Db::userList, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
@@ -95,7 +94,7 @@ std::vector<std::string> Db::fetchAllFollowers(std::string UserName){
     if(!db){
         return followersList;
     } 
-    std::string sqlQuery =("SELECT * from FOLLOWERS WHERE FOLLOWS =\"" + UserName + "\";").c_str();
+    std::string sqlQuery ="SELECT * from FOLLOWERS WHERE FOLLOWS =\"" + UserName + "\";";
     int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, (void *)&followersList, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
@@ -129,8 +128,8 @@ void Db::createUsersTable(){
     sqlite3* db = openDataBaseConnection(db);
     if(db){
         char* zErrMsg = 0;
-        char* sqlQuery = "CREATE TABLE IF NOT EXISTS USERS (NAME TEXT NOT NULL);";
-        int rc = sqlite3_exec(db, sqlQuery, NULL, 0, &zErrMsg);
+        std::string sqlQuery = "CREATE TABLE IF NOT EXISTS USERS (NAME TEXT NOT NULL);";
+        int rc = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK){
             sqlite3_free(zErrMsg);
         }
@@ -142,9 +141,9 @@ void Db::createFollowersTable(){
     sqlite3* db = openDataBaseConnection(db);
     if(db){
         char* zErrMsg = 0;
-        char* sqlQuery = "CREATE TABLE IF NOT EXISTS FOLLOWERS (NAME TEXT NOT NULL, \
+        std::string sqlQuery = "CREATE TABLE IF NOT EXISTS FOLLOWERS (NAME TEXT NOT NULL, \
                                                           FOLLOWS TEXT NOT NULL);";
-        int rc = sqlite3_exec(db, sqlQuery, NULL, 0, &zErrMsg);
+        int rc = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK){
             sqlite3_free(zErrMsg);
         }
