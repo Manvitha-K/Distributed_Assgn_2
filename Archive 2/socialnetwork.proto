@@ -17,12 +17,12 @@ message followersList {
 }
 
 message allUsers {
-  repeated string registeredUsers = 1;
+  repeated string registeredusers = 1;
   repeated string followers = 2;
 }
 
 message user {
-    string userId = 1;
+    string userid = 1;
 }
 
 message followRequest {

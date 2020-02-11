@@ -30,7 +30,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				const user* request,
 				reqResponse* reply
 			)override{
-				std::string userName = request->userId();
+				std::string userName = request->userid();
 				reply->set_success(database.registerUser(userName));
 				return Status::OK;
 			}
@@ -40,8 +40,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				const user* request,
 				allUsers* reply
 				)override{
-					std::string userName = request->userId();
-					reply->set_registeredUsers(database.listAllUsers());
+					std::string userName = request->userid();
+					reply->set_registeredusers(database.listAllUsers());
 					reply->set_followers(database.fetchAllFollowers(userName));
 					return Status::OK;
 			}
