@@ -35,7 +35,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				return Status::OK;
 			}
 			
-			Status list(
+			Status listUser(
 				ServerContext* context,
 				const user* request,
 				listResponse* reply
