@@ -46,8 +46,8 @@ void InitDefaultsreqResponseImpl();
 void InitDefaultsreqResponse();
 void InitDefaultsfollowersListImpl();
 void InitDefaultsfollowersList();
-void InitDefaultsallUsersImpl();
-void InitDefaultsallUsers();
+void InitDefaultslistResponseImpl();
+void InitDefaultslistResponse();
 void InitDefaultsuserImpl();
 void InitDefaultsuser();
 void InitDefaultsfollowRequestImpl();
@@ -57,22 +57,22 @@ void InitDefaultsstatus();
 inline void InitDefaults() {
   InitDefaultsreqResponse();
   InitDefaultsfollowersList();
-  InitDefaultsallUsers();
+  InitDefaultslistResponse();
   InitDefaultsuser();
   InitDefaultsfollowRequest();
   InitDefaultsstatus();
 }
 }  // namespace protobuf_socialnetwork_2eproto
 namespace socialnetwork {
-class allUsers;
-class allUsersDefaultTypeInternal;
-extern allUsersDefaultTypeInternal _allUsers_default_instance_;
 class followRequest;
 class followRequestDefaultTypeInternal;
 extern followRequestDefaultTypeInternal _followRequest_default_instance_;
 class followersList;
 class followersListDefaultTypeInternal;
 extern followersListDefaultTypeInternal _followersList_default_instance_;
+class listResponse;
+class listResponseDefaultTypeInternal;
+extern listResponseDefaultTypeInternal _listResponse_default_instance_;
 class reqResponse;
 class reqResponseDefaultTypeInternal;
 extern reqResponseDefaultTypeInternal _reqResponse_default_instance_;
@@ -301,24 +301,24 @@ class followersList : public ::google::protobuf::Message /* @@protoc_insertion_p
 };
 // -------------------------------------------------------------------
 
-class allUsers : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:socialnetwork.allUsers) */ {
+class listResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:socialnetwork.listResponse) */ {
  public:
-  allUsers();
-  virtual ~allUsers();
+  listResponse();
+  virtual ~listResponse();
 
-  allUsers(const allUsers& from);
+  listResponse(const listResponse& from);
 
-  inline allUsers& operator=(const allUsers& from) {
+  inline listResponse& operator=(const listResponse& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  allUsers(allUsers&& from) noexcept
-    : allUsers() {
+  listResponse(listResponse&& from) noexcept
+    : listResponse() {
     *this = ::std::move(from);
   }
 
-  inline allUsers& operator=(allUsers&& from) noexcept {
+  inline listResponse& operator=(listResponse&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -328,30 +328,30 @@ class allUsers : public ::google::protobuf::Message /* @@protoc_insertion_point(
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const allUsers& default_instance();
+  static const listResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const allUsers* internal_default_instance() {
-    return reinterpret_cast<const allUsers*>(
-               &_allUsers_default_instance_);
+  static inline const listResponse* internal_default_instance() {
+    return reinterpret_cast<const listResponse*>(
+               &_listResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     2;
 
-  void Swap(allUsers* other);
-  friend void swap(allUsers& a, allUsers& b) {
+  void Swap(listResponse* other);
+  friend void swap(listResponse& a, listResponse& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline allUsers* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline listResponse* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  allUsers* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  listResponse* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const allUsers& from);
-  void MergeFrom(const allUsers& from);
+  void CopyFrom(const listResponse& from);
+  void MergeFrom(const listResponse& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -367,7 +367,7 @@ class allUsers : public ::google::protobuf::Message /* @@protoc_insertion_point(
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(allUsers* other);
+  void InternalSwap(listResponse* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -383,10 +383,10 @@ class allUsers : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // repeated string registeredUsers = 1;
+  // repeated string registeredusers = 1;
   int registeredusers_size() const;
   void clear_registeredusers();
-  static const int kRegisteredUsersFieldNumber = 1;
+  static const int kRegisteredusersFieldNumber = 1;
   const ::std::string& registeredusers(int index) const;
   ::std::string* mutable_registeredusers(int index);
   void set_registeredusers(int index, const ::std::string& value);
@@ -427,7 +427,7 @@ class allUsers : public ::google::protobuf::Message /* @@protoc_insertion_point(
   const ::google::protobuf::RepeatedPtrField< ::std::string>& followers() const;
   ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_followers();
 
-  // @@protoc_insertion_point(class_scope:socialnetwork.allUsers)
+  // @@protoc_insertion_point(class_scope:socialnetwork.listResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -435,7 +435,7 @@ class allUsers : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::google::protobuf::RepeatedPtrField< ::std::string> followers_;
   mutable int _cached_size_;
   friend struct ::protobuf_socialnetwork_2eproto::TableStruct;
-  friend void ::protobuf_socialnetwork_2eproto::InitDefaultsallUsersImpl();
+  friend void ::protobuf_socialnetwork_2eproto::InitDefaultslistResponseImpl();
 };
 // -------------------------------------------------------------------
 
@@ -521,9 +521,9 @@ class user : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   // accessors -------------------------------------------------------
 
-  // string userId = 1;
+  // string userid = 1;
   void clear_userid();
-  static const int kUserIdFieldNumber = 1;
+  static const int kUseridFieldNumber = 1;
   const ::std::string& userid() const;
   void set_userid(const ::std::string& value);
   #if LANG_CXX11
@@ -873,143 +873,143 @@ followersList::mutable_followers() {
 
 // -------------------------------------------------------------------
 
-// allUsers
+// listResponse
 
-// repeated string registeredUsers = 1;
-inline int allUsers::registeredusers_size() const {
+// repeated string registeredusers = 1;
+inline int listResponse::registeredusers_size() const {
   return registeredusers_.size();
 }
-inline void allUsers::clear_registeredusers() {
+inline void listResponse::clear_registeredusers() {
   registeredusers_.Clear();
 }
-inline const ::std::string& allUsers::registeredusers(int index) const {
-  // @@protoc_insertion_point(field_get:socialnetwork.allUsers.registeredUsers)
+inline const ::std::string& listResponse::registeredusers(int index) const {
+  // @@protoc_insertion_point(field_get:socialnetwork.listResponse.registeredusers)
   return registeredusers_.Get(index);
 }
-inline ::std::string* allUsers::mutable_registeredusers(int index) {
-  // @@protoc_insertion_point(field_mutable:socialnetwork.allUsers.registeredUsers)
+inline ::std::string* listResponse::mutable_registeredusers(int index) {
+  // @@protoc_insertion_point(field_mutable:socialnetwork.listResponse.registeredusers)
   return registeredusers_.Mutable(index);
 }
-inline void allUsers::set_registeredusers(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:socialnetwork.allUsers.registeredUsers)
+inline void listResponse::set_registeredusers(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:socialnetwork.listResponse.registeredusers)
   registeredusers_.Mutable(index)->assign(value);
 }
 #if LANG_CXX11
-inline void allUsers::set_registeredusers(int index, ::std::string&& value) {
-  // @@protoc_insertion_point(field_set:socialnetwork.allUsers.registeredUsers)
+inline void listResponse::set_registeredusers(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:socialnetwork.listResponse.registeredusers)
   registeredusers_.Mutable(index)->assign(std::move(value));
 }
 #endif
-inline void allUsers::set_registeredusers(int index, const char* value) {
+inline void listResponse::set_registeredusers(int index, const char* value) {
   GOOGLE_DCHECK(value != NULL);
   registeredusers_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:socialnetwork.allUsers.registeredUsers)
+  // @@protoc_insertion_point(field_set_char:socialnetwork.listResponse.registeredusers)
 }
-inline void allUsers::set_registeredusers(int index, const char* value, size_t size) {
+inline void listResponse::set_registeredusers(int index, const char* value, size_t size) {
   registeredusers_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:socialnetwork.allUsers.registeredUsers)
+  // @@protoc_insertion_point(field_set_pointer:socialnetwork.listResponse.registeredusers)
 }
-inline ::std::string* allUsers::add_registeredusers() {
-  // @@protoc_insertion_point(field_add_mutable:socialnetwork.allUsers.registeredUsers)
+inline ::std::string* listResponse::add_registeredusers() {
+  // @@protoc_insertion_point(field_add_mutable:socialnetwork.listResponse.registeredusers)
   return registeredusers_.Add();
 }
-inline void allUsers::add_registeredusers(const ::std::string& value) {
+inline void listResponse::add_registeredusers(const ::std::string& value) {
   registeredusers_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:socialnetwork.allUsers.registeredUsers)
+  // @@protoc_insertion_point(field_add:socialnetwork.listResponse.registeredusers)
 }
 #if LANG_CXX11
-inline void allUsers::add_registeredusers(::std::string&& value) {
+inline void listResponse::add_registeredusers(::std::string&& value) {
   registeredusers_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:socialnetwork.allUsers.registeredUsers)
+  // @@protoc_insertion_point(field_add:socialnetwork.listResponse.registeredusers)
 }
 #endif
-inline void allUsers::add_registeredusers(const char* value) {
+inline void listResponse::add_registeredusers(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   registeredusers_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:socialnetwork.allUsers.registeredUsers)
+  // @@protoc_insertion_point(field_add_char:socialnetwork.listResponse.registeredusers)
 }
-inline void allUsers::add_registeredusers(const char* value, size_t size) {
+inline void listResponse::add_registeredusers(const char* value, size_t size) {
   registeredusers_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:socialnetwork.allUsers.registeredUsers)
+  // @@protoc_insertion_point(field_add_pointer:socialnetwork.listResponse.registeredusers)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
-allUsers::registeredusers() const {
-  // @@protoc_insertion_point(field_list:socialnetwork.allUsers.registeredUsers)
+listResponse::registeredusers() const {
+  // @@protoc_insertion_point(field_list:socialnetwork.listResponse.registeredusers)
   return registeredusers_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>*
-allUsers::mutable_registeredusers() {
-  // @@protoc_insertion_point(field_mutable_list:socialnetwork.allUsers.registeredUsers)
+listResponse::mutable_registeredusers() {
+  // @@protoc_insertion_point(field_mutable_list:socialnetwork.listResponse.registeredusers)
   return &registeredusers_;
 }
 
 // repeated string followers = 2;
-inline int allUsers::followers_size() const {
+inline int listResponse::followers_size() const {
   return followers_.size();
 }
-inline void allUsers::clear_followers() {
+inline void listResponse::clear_followers() {
   followers_.Clear();
 }
-inline const ::std::string& allUsers::followers(int index) const {
-  // @@protoc_insertion_point(field_get:socialnetwork.allUsers.followers)
+inline const ::std::string& listResponse::followers(int index) const {
+  // @@protoc_insertion_point(field_get:socialnetwork.listResponse.followers)
   return followers_.Get(index);
 }
-inline ::std::string* allUsers::mutable_followers(int index) {
-  // @@protoc_insertion_point(field_mutable:socialnetwork.allUsers.followers)
+inline ::std::string* listResponse::mutable_followers(int index) {
+  // @@protoc_insertion_point(field_mutable:socialnetwork.listResponse.followers)
   return followers_.Mutable(index);
 }
-inline void allUsers::set_followers(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:socialnetwork.allUsers.followers)
+inline void listResponse::set_followers(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:socialnetwork.listResponse.followers)
   followers_.Mutable(index)->assign(value);
 }
 #if LANG_CXX11
-inline void allUsers::set_followers(int index, ::std::string&& value) {
-  // @@protoc_insertion_point(field_set:socialnetwork.allUsers.followers)
+inline void listResponse::set_followers(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:socialnetwork.listResponse.followers)
   followers_.Mutable(index)->assign(std::move(value));
 }
 #endif
-inline void allUsers::set_followers(int index, const char* value) {
+inline void listResponse::set_followers(int index, const char* value) {
   GOOGLE_DCHECK(value != NULL);
   followers_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:socialnetwork.allUsers.followers)
+  // @@protoc_insertion_point(field_set_char:socialnetwork.listResponse.followers)
 }
-inline void allUsers::set_followers(int index, const char* value, size_t size) {
+inline void listResponse::set_followers(int index, const char* value, size_t size) {
   followers_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:socialnetwork.allUsers.followers)
+  // @@protoc_insertion_point(field_set_pointer:socialnetwork.listResponse.followers)
 }
-inline ::std::string* allUsers::add_followers() {
-  // @@protoc_insertion_point(field_add_mutable:socialnetwork.allUsers.followers)
+inline ::std::string* listResponse::add_followers() {
+  // @@protoc_insertion_point(field_add_mutable:socialnetwork.listResponse.followers)
   return followers_.Add();
 }
-inline void allUsers::add_followers(const ::std::string& value) {
+inline void listResponse::add_followers(const ::std::string& value) {
   followers_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:socialnetwork.allUsers.followers)
+  // @@protoc_insertion_point(field_add:socialnetwork.listResponse.followers)
 }
 #if LANG_CXX11
-inline void allUsers::add_followers(::std::string&& value) {
+inline void listResponse::add_followers(::std::string&& value) {
   followers_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:socialnetwork.allUsers.followers)
+  // @@protoc_insertion_point(field_add:socialnetwork.listResponse.followers)
 }
 #endif
-inline void allUsers::add_followers(const char* value) {
+inline void listResponse::add_followers(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   followers_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:socialnetwork.allUsers.followers)
+  // @@protoc_insertion_point(field_add_char:socialnetwork.listResponse.followers)
 }
-inline void allUsers::add_followers(const char* value, size_t size) {
+inline void listResponse::add_followers(const char* value, size_t size) {
   followers_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:socialnetwork.allUsers.followers)
+  // @@protoc_insertion_point(field_add_pointer:socialnetwork.listResponse.followers)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
-allUsers::followers() const {
-  // @@protoc_insertion_point(field_list:socialnetwork.allUsers.followers)
+listResponse::followers() const {
+  // @@protoc_insertion_point(field_list:socialnetwork.listResponse.followers)
   return followers_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>*
-allUsers::mutable_followers() {
-  // @@protoc_insertion_point(field_mutable_list:socialnetwork.allUsers.followers)
+listResponse::mutable_followers() {
+  // @@protoc_insertion_point(field_mutable_list:socialnetwork.listResponse.followers)
   return &followers_;
 }
 
@@ -1017,46 +1017,46 @@ allUsers::mutable_followers() {
 
 // user
 
-// string userId = 1;
+// string userid = 1;
 inline void user::clear_userid() {
   userid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& user::userid() const {
-  // @@protoc_insertion_point(field_get:socialnetwork.user.userId)
+  // @@protoc_insertion_point(field_get:socialnetwork.user.userid)
   return userid_.GetNoArena();
 }
 inline void user::set_userid(const ::std::string& value) {
   
   userid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:socialnetwork.user.userId)
+  // @@protoc_insertion_point(field_set:socialnetwork.user.userid)
 }
 #if LANG_CXX11
 inline void user::set_userid(::std::string&& value) {
   
   userid_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:socialnetwork.user.userId)
+  // @@protoc_insertion_point(field_set_rvalue:socialnetwork.user.userid)
 }
 #endif
 inline void user::set_userid(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   userid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:socialnetwork.user.userId)
+  // @@protoc_insertion_point(field_set_char:socialnetwork.user.userid)
 }
 inline void user::set_userid(const char* value, size_t size) {
   
   userid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:socialnetwork.user.userId)
+  // @@protoc_insertion_point(field_set_pointer:socialnetwork.user.userid)
 }
 inline ::std::string* user::mutable_userid() {
   
-  // @@protoc_insertion_point(field_mutable:socialnetwork.user.userId)
+  // @@protoc_insertion_point(field_mutable:socialnetwork.user.userid)
   return userid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* user::release_userid() {
-  // @@protoc_insertion_point(field_release:socialnetwork.user.userId)
+  // @@protoc_insertion_point(field_release:socialnetwork.user.userid)
   
   return userid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1067,7 +1067,7 @@ inline void user::set_allocated_userid(::std::string* userid) {
     
   }
   userid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), userid);
-  // @@protoc_insertion_point(field_set_allocated:socialnetwork.user.userId)
+  // @@protoc_insertion_point(field_set_allocated:socialnetwork.user.userid)
 }
 
 // -------------------------------------------------------------------

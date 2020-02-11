@@ -16,7 +16,7 @@ using socialnetwork::user;
 using socialnetwork::followRequest;
 using socialnetwork::status;
 using socialnetwork::user;
-using socialnetwork::allUsers;
+using socialnetwork::listResponse;
 
 class chatServiceImplementation final: public SocialNetwork::Service{
 		private:
@@ -38,7 +38,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 			Status list(
 				ServerContext* context,
 				const user* request,
-				allUsers* reply
+				listResponse* reply
 				)override{
 					std::string userName = request->userid();
 					reply->set_registeredusers(database.listAllUsers());
