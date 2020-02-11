@@ -39,11 +39,19 @@ class Client : public IClient
             ClientContext context;
             Status status = stub_->follow(&context, request, &response);
             ire.grpc_status = status;
-            if(!status.ok()){
-                ire.comm_status = response.status();
+            if(status.ok()){
+                if(response.status() == 0){
+                    ire.comm_status = SUCCESS;
+                }
+                else if(response.status() == 1){
+                    ire.comm_status = FAILURE_NOT_EXISTS;
+                }
+                else if(response.status() == 2){
+                    ire.comm_status = FAILURE_INVALID_USERNAME;
+                } 
             }
             else{
-                ire.comm_status = response.status();
+                ire.comm_status = FAILURE_UNKNOWN;
             }
         }
         void unfollow(std::string user, std::string follows, IReply& ire) {
@@ -55,11 +63,19 @@ class Client : public IClient
             Status status = stub_->unfollow(&context, request, &response);
             ire.grpc_status = status;
             if(status.ok()){
-                ire.comm_status = response.status();
+                if(response.status() == 0){
+                    ire.comm_status = SUCCESS;
+                }
+                else if(response.status() == 1){
+                    ire.comm_status = FAILURE_NOT_EXISTS;
+                }
+                else if(response.status() == 2){
+                    ire.comm_status = FAILURE_INVALID_USERNAME;
+                }    
             }
             else{
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;
-                ire.comm_status = FAILURE_NOT_EXISTS;
+                ire.comm_status = FAILURE_UNKNOWN;
             }
         }
         void listUser(std::string username, IReply& ire){
@@ -69,10 +85,12 @@ class Client : public IClient
             ClientContext context;
             Status status = stub_->listUser(&context, request, &response);
             ire.grpc_status = status;
-            if(status.ok()){    
-                ire.comm_status = SUCCESS;
-                ire.all_users = response.users();
-                ire.following_users = response.following_users();
+            if(status.ok()){ 
+                if(response.status() == 0){
+                    ire.comm_status = SUCCESS;
+                    ire.all_users = response.users();
+                    ire.following_users = response.following_users();
+                } 
             }
             else{
                 ire.comm_status = FAILURE_NOT_EXISTS;
@@ -171,7 +189,7 @@ IReply Client::processCommand(std::string& input)
         ire.grpc_status = Status::OK;
     }
     else{
-        ire.comm_status = FAILURE_INVALID;
+        ire.comm_status = FAILURE_NOT_EXISTS;
         ire.grpc_status = Status(StatusCode::INVALID_ARGUMENT, "Invalid Command");
     }
 
