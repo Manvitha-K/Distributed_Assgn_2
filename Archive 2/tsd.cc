@@ -43,7 +43,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				if(dataBaseStatus == 0){
 					activeUsers.push_back(userName);
 				}
-				reply->set_success(dataBaseStatus);
+				reply->set_status(dataBaseStatus);
 				return Status::OK;
 			}
 			

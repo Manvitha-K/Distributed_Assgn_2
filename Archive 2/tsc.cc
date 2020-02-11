@@ -38,7 +38,7 @@ class Client : public IClient
             ClientContext context;
             Status status = stub_->follow(&context, request, &response);
             if(status.ok()){
-                return response.success();
+                return response.status();
             }
             else {
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;
@@ -53,7 +53,7 @@ class Client : public IClient
             ClientContext context;
             Status status = stub_->unfollow(&context, request, &response);
             if(status.ok()){
-                return response.success();
+                return response.status();
             }
             else {
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;
@@ -82,7 +82,7 @@ class Client : public IClient
             Status status = stub_->registerUser(&context, request, &response);
             if(status.ok()){
                 std::cout << "successful " << std::endl;
-                return response.success();
+                return response.status();
             }
             else{
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;

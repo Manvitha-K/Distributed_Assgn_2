@@ -20,9 +20,9 @@ class Db{
         void createFollowersTable();
 
 
-        bool registerUser(std::string UserName);
-        bool Follow(std::string user, std::string follows);
-        bool unFollow(std::string user, std::string follows);
+        int registerUser(std::string UserName);
+        int Follow(std::string user, std::string follows);
+        int unFollow(std::string user, std::string follows);
 
         std::vector<std::string> listAllUsers();
         std::vector<std::string> fetchAllFollowers(std::string UserName);
