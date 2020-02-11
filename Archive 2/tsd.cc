@@ -59,6 +59,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 			)override{
 				std::string followeeId = request->followee();
 				std::string followerId = request->follower();
+				std::cout << "followeeId " << followeeId << "\n";
+				std::cout << "followerId " << followerId << "\n";
 				
 				database.Follow(followeeId, followerId);
 				return Status::OK; 

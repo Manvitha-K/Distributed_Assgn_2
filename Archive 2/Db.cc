@@ -1,4 +1,5 @@
 #include "Db.h"
+#include <iostream>
 
 Db::Db(sqlite3* db){
     int rc = sqlite3_open_v2("./socialnetwork.db", &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX, NULL);  
@@ -161,8 +162,10 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
     bool follows = false;
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
+    std::cout << "In checking phase\n";
     std::vector<std::string> followeesList;
     if(db){
+        std::cout << "DB successful open\n";
         std::string sqlQuery = "SELECT * from FOLLOWERS WHERE NAME = \""+ user + "\" \
                                             AND FOLLOWS = \"" + followee +"\";";
         int rc = sqlite3_exec(db, sqlQuery.c_str(), checkAlreadyFollowingCallback, (void *)&follows, &zErrMsg);
@@ -171,11 +174,13 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
         }
         closeDataBaseConnection(db);
     }
+    std::cout << "DB Close\n";
     return follows;
 }
 
 bool Db::Follow(std::string user, std::string follows){
     bool following = checkAlreadyFollowing(user, follows);
+    std::cout << "following " << following << "\n";
     if(following == false){
         char* zErrMsg = 0;
         sqlite3* db = openDataBaseConnection(db);
