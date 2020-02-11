@@ -11,6 +11,7 @@
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
+using grpc::StatusCode;
 
 using socialnetwork::SocialNetwork;
 using socialnetwork::reqResponse;
@@ -38,12 +39,11 @@ class Client : public IClient
             ClientContext context;
             Status status = stub_->follow(&context, request, &response);
             ire.grpc_status = status;
-            if(status.ok()){
+            if(!status.ok()){
                 ire.comm_status = response.status();
             }
             else{
-                std::cout << status.error_code() << ": " << status.error_message() << std::endl;
-                ire.comm_status = FAILURE_NOT_EXISTS;
+                ire.comm_status = response.status();
             }
         }
         void unfollow(std::string user, std::string follows, IReply& ire) {
@@ -166,9 +166,15 @@ IReply Client::processCommand(std::string& input)
     else if(input.rfind("LIST", 0) == 0){
         listUser(username, ire);
     }
-    else{
-
+    else if(input.rfind("TIMELINE", 0) == 0){
+        ire.comm_status = SUCCESS;
+        ire.grpc_status = Status::OK;
     }
+    else{
+        ire.comm_status = FAILURE_INVALID;
+        ire.grpc_status = Status(StatusCode::INVALID_ARGUMENT, "Invalid Command");
+    }
+
 
 
 	// ------------------------------------------------------------
