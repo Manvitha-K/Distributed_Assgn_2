@@ -20,8 +20,8 @@ void closeDataBaseConnection(sqlite3* db){
 }
 
 static int fetchUsersCallback(void* userList, int colcount, char **data, char **ColName){
-    std::vector<std::string>* users = (std::vector<std::string>*) userList;
-    (*users).push_back(data[0]);
+    std::vector<std::string>* users = static_cast<std::vector<std::string>*> (userList);
+    users->push_back(data[0]);
 }
 
 std::vector<std::string> Db::listAllUsers(){
@@ -33,7 +33,8 @@ std::vector<std::string> Db::listAllUsers(){
         return userList;
     } 
     std::string sqlQuery = "SELECT * from USERS;";
-    int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, (void *)&Db::userList, &zErrMsg);
+    std::vector<std::string> userList;
+    int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, &userList, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }

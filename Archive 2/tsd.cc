@@ -2,7 +2,7 @@
 #include <grpc++/grpc++.h>
 #include "socialnetwork.grpc.pb.h"
 #include "Db.h"
-#include <sqlite3.h>
+#include "sqlite/sqlite3.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -30,8 +30,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				const user* request,
 				reqResponse* reply
 			)override{
-				std::string userName = request->userId;
-				reply->success = database.registerUser(userName);
+				std::string userName = request->userId();
+				reply->set_success(database.registerUser(userName));
 				return Status::OK;
 			}
 			
@@ -40,9 +40,9 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				const user* request,
 				allUsers* reply
 				)override{
-					std::string userName = request->userId;
-					reply.registeredUsers = database.listAllUsers();
-					reply.followers = database.fetchAllFollowers(userName);
+					std::string userName = request->userId();
+					reply->set_registeredUsers(database.listAllUsers());
+					reply->set_followers(database.fetchAllFollowers(userName));
 					return Status::OK;
 			}
 			Status follow(
@@ -50,8 +50,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				const followRequest* request,
 				reqResponse* reply
 			)override{
-				std::string followeeId = request->followee;
-				std::string followerId = request->follower;
+				std::string followeeId = request->followee();
+				std::string followerId = request->follower();
 				
 				database.Follow(followeeId, followerId);
 				return Status::OK; 
@@ -61,8 +61,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				const followRequest* request,
 				reqResponse* reply
 			)override{
-				std::string followeeId = request->followee;
-				std::string followerId = request->follower;
+				std::string followeeId = request->followee();
+				std::string followerId = request->follower();
 				database.unFollow(followeeId, followerId);
 				return Status::OK;
 			}
