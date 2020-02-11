@@ -30,63 +30,67 @@ class Client : public IClient
             :hostname(hname), username(uname), port(p)
             {}
 
-        bool follow(std::string user, std::string follows) {
+        void follow(std::string user, std::string follows, IReply& ire) {
             followRequest request;
             request.set_followee(user);
             request.set_follower(follows);
             reqResponse response;
             ClientContext context;
             Status status = stub_->follow(&context, request, &response);
+            ire.grpc_status = status;
             if(status.ok()){
-                return response.status();
+                ire.comm_status = response.status();
             }
-            else {
+            else{
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;
-                return -1;
+                ire.comm_status = FAILURE_NOT_EXISTS;
             }
         }
-        bool unfollow(std::string user, std::string follows) {
+        void unfollow(std::string user, std::string follows, IReply& ire) {
             followRequest request;
             request.set_followee(user);
             request.set_follower(follows);
             reqResponse response;
             ClientContext context;
             Status status = stub_->unfollow(&context, request, &response);
+            ire.grpc_status = status;
             if(status.ok()){
-                return response.status();
+                ire.comm_status = response.status();
             }
-            else {
+            else{
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;
-                return -1;
+                ire.comm_status = FAILURE_NOT_EXISTS;
             }
         }
-        /*std::pair <std::vector<std::string>, std::vector<std::string>> listUser(std::string username){
+        void listUser(std::string username, IReply& ire){
             user request;
             request.set_userid(username);
             listResponse response;
             ClientContext context;
             Status status = stub_->listUser(&context, request, &response);
+            ire.grpc_status = status;
             if(status.ok()){    
-                return std::make_pair(response.registeredusers(), response.followers());
+                ire.comm_status = SUCCESS;
+                ire.all_users = response.users();
+                ire.following_users = response.following_users();
             }
             else{
-                std::cout << status.error_code() << ": " << status.error_message() << std::endl;
-                return std::make_pair(NULL, NULL);
+                ire.comm_status = FAILURE_NOT_EXISTS;
             } 
-        }*/
-        bool registerUser(std::string username){
+        }
+        void registerUser(std::string username, IReply& ire){
             user request;
             request.set_userid(username);
             reqResponse response;
             ClientContext context;
             Status status = stub_->registerUser(&context, request, &response);
+            ire.grpc_status = status;
             if(status.ok()){
-                std::cout << "successful " << std::endl;
-                return response.status();
+                ire.comm_status = response.status();
             }
             else{
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;
-                return -1;
+                ire.comm_status = FAILURE_NOT_EXISTS;
             }
         }
     protected:
@@ -151,9 +155,9 @@ int Client::connectTo()
 
 IReply Client::processCommand(std::string& input)
 {
+    IReply ire;
     if (input.rfind("FOLLOW", 0) == 0) {
-        std::cout << input.substr(7) << " " << "\n";
-        bool status = follow(username, input.substr(7));
+        bool status = follow(username, input.substr(7), ire);
     }
     else if(input.rfind("UNFOLLOW", 0) == 0){
         bool status = unfollow(username, &input[7]);
@@ -212,7 +216,7 @@ IReply Client::processCommand(std::string& input)
     // "following_users" member variable of IReply.
 	// ------------------------------------------------------------
     
-    IReply ire;
+    
     return ire;
 }
 
