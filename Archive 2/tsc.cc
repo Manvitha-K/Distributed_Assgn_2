@@ -6,6 +6,20 @@
 #include <unistd.h>
 #include <grpc++/grpc++.h>
 #include "client.h"
+#include "socialnetwork.grpc.pb.h"
+
+using grpc::Channel;
+using grpc::ClientContext;
+using grpc::Status;
+
+using socialnetwork::SocialNetwork;
+using socialnetwork::reqResponse;
+using socialnetwork::followersList;
+using socialnetwork::user;
+using socialnetwork::followRequest;
+using socialnetwork::status;
+using socialnetwork::user;
+using socialnetwork::listResponse;
 
 class Client : public IClient
 {
@@ -15,6 +29,65 @@ class Client : public IClient
                const std::string& p)
             :hostname(hname), username(uname), port(p)
             {}
+
+        bool follow(std::string user, std::string follows) {
+            followRequest request;
+            request.set_followee(user);
+            request.set_follower(follows);
+            reqResponse response;
+            ClientContext context;
+            Status status = stub_->follow(&context, request, &response);
+            if(status.ok()){
+                return response.success();
+            }
+            else {
+                std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+                return -1;
+            }
+        }
+        bool unfollow(std::string user, std::string follows) {
+            followRequest request;
+            request.set_followee(user);
+            request.set_follower(follows);
+            reqResponse response;
+            ClientContext context;
+            Status status = stub_->unfollow(&context, request, &response);
+            if(status.ok()){
+                return response.success();
+            }
+            else {
+                std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+                return -1;
+            }
+        }
+        std::pair <std::vector<std::string>, std::vector<std::string>> listUser(std::string username){
+            user request;
+            request.set_userid(username);
+            listResponse response;
+            ClientContext context;
+            Status status = stub_->listUser(&context, request, &response);
+            if(status.ok()){    
+                return std::make_pair(response.registeredusers(), response.followers());
+            }
+            else{
+                std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+                return std::make_pair(NULL, NULL);
+            }
+        }
+        bool registerUser(std::string username){
+            user request;
+            request.set_userid(username);
+            reqResponse response;
+            ClientContext context;
+            Status status = stub_->registerUser(&context, request, &response);
+            if(status.ok()){
+                return response.success();
+            }
+            else{
+                std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+                return -1;
+            }
+        }
     protected:
         virtual int connectTo();
         virtual IReply processCommand(std::string& input);
@@ -23,10 +96,21 @@ class Client : public IClient
         std::string hostname;
         std::string username;
         std::string port;
-        
-        // You can have an instance of the client stub
-        // as a member variable.
-        //std::unique_ptr<NameOfYourStubClass::Stub> stub_;
+        std::unique_ptr<SocialNetwork::Stub> stub_;
+
+
+    void run_client() {
+        std::string ipaddr = hostname + ":" + port;
+        std::string address(ipaddr);
+        Client client(
+            grpc::CreateChannel(
+            address, 
+            grpc::InsecureChannelCredentials()
+            )
+        );
+
+    
+    }
 };
 
 int main(int argc, char** argv) {
@@ -72,6 +156,20 @@ int Client::connectTo()
 
 IReply Client::processCommand(std::string& input)
 {
+    if (input.rfind("FOLLOW", 0) == 0) {
+        bool status = follow();
+    }
+    else if(input.rfind("UNFOLLOW", 0) == 0){
+        bool status = unfollow();
+    }
+    else if(input.rfind("LIST", 0) == 0){
+
+    }
+    else{
+
+    }
+
+
 	// ------------------------------------------------------------
 	// GUIDE 1:
 	// In this function, you are supposed to parse the given input
