@@ -31,6 +31,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				reqResponse* reply
 			)override{
 				std::string userName = request->userid();
+				std::cout << "userName " << userName << "\n";
 				reply->set_success(database.registerUser(userName));
 				return Status::OK;
 			}
