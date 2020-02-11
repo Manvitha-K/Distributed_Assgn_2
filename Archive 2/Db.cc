@@ -4,6 +4,8 @@
 Db::Db(sqlite3* db){
     int rc = sqlite3_open_v2("./socialnetwork.db", &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX, NULL);  
     Db::DatabaseObj = db;
+    createUsersTable();
+    createFollowersTable();
 }
 
 sqlite3* openDataBaseConnection(sqlite3* db){
@@ -179,9 +181,18 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
 }
 
 bool Db::Follow(std::string user, std::string follows){
+    bool userExists = checkUserExistence(user);
+    if(userExists == false){
+        return false;
+    }
+    bool followsExists = checkUserExistence(follows);
+    if(followsExists == false){
+        return false;
+    }
     bool following = checkAlreadyFollowing(user, follows);
     std::cout << "following " << following << "\n";
     if(following == false){
+        std::cout << "creating follow relationship \n";
         char* zErrMsg = 0;
         sqlite3* db = openDataBaseConnection(db);
         std::string sqlQuery = "INSERT INTO FOLLOWERS (NAME,FOLLOWS) \
