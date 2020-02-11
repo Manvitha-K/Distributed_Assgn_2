@@ -152,8 +152,8 @@ int Client::connectTo()
 IReply Client::processCommand(std::string& input)
 {
     if (input.rfind("FOLLOW", 0) == 0) {
-        std::cout << input[7] << " " << "\n";
-        bool status = follow(username, &input[7]);
+        std::cout << input.substr(7) << " " << "\n";
+        bool status = follow(username, input.substr(7));
     }
     else if(input.rfind("UNFOLLOW", 0) == 0){
         bool status = unfollow(username, &input[7]);
