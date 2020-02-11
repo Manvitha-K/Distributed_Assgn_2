@@ -206,35 +206,3 @@ bool Db::unFollow(std::string user, std::string follows){
     }
     return false;
 }
-
-
-int main(int argc, char* argv[]){
-
-    /*sqlite3* db;
-    char* sql;
-    char* zErrMsg = 0;
-    int rc;
-    rc = sqlite3_open("./Database/socialnetwork.db", & db);
-    if(rc){
-        fprintf(stderr, "error: %s\n", sqlite3_errmsg(db));
-        return 0;
-    }
-    else{
-        fprintf(stderr, "successfully opened\n");
-    }
-    sql = "CREATE TABLE USERS(" \
-    "NAME TEXT PRIMARY KEY NOT NULL);,";
-    
-    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-    if (rc != SQLITE_OK){
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
-    }
-    else{
-        fprintf(stdout, "Table successfully created");
-    }
-
-
-    sqlite3_close(db);*/
-    return 0;
-}

@@ -35,7 +35,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				return Status::OK;
 			}
 			
-			Status listUser(
+			/*Status listUser(
 				ServerContext* context,
 				const user* request,
 				listResponse* reply
@@ -46,7 +46,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 					std::vector<std::string> followers = database.fetchAllFollowers(userName);
 					reply->set_followers(followers);
 					return Status::OK;
-			}
+			}*/
 			Status follow(
 				ServerContext* context,
 				const followRequest* request,
