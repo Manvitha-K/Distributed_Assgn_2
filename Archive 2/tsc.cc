@@ -78,19 +78,18 @@ class Client : public IClient
                 ire.comm_status = FAILURE_NOT_EXISTS;
             } 
         }
-        void registerUser(std::string username, IReply& ire){
+        int registerUser(std::string username){
             user request;
             request.set_userid(username);
             reqResponse response;
             ClientContext context;
             Status status = stub_->registerUser(&context, request, &response);
-            ire.grpc_status = status;
             if(status.ok()){
-                ire.comm_status = response.status();
+                return response.status();
             }
             else{
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;
-                ire.comm_status = FAILURE_NOT_EXISTS;
+                return FAILURE_NOT_EXISTS;
             }
         }
     protected:
@@ -148,9 +147,11 @@ int Client::connectTo()
     channel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
     stub_ = socialnetwork::SocialNetwork::NewStub(channel);
     std::cout << "stub successfully created\n";
-    registerUser(username);
-
-    return 1; // return 1 if success, otherwise return -1
+    int regVal = registerUser(username);
+    if(regVal == 0){
+        return 1;
+    }
+    return -1; // return 1 if success, otherwise return -1
 }
 
 IReply Client::processCommand(std::string& input)
