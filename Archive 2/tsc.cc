@@ -157,13 +157,13 @@ IReply Client::processCommand(std::string& input)
 {
     IReply ire;
     if (input.rfind("FOLLOW", 0) == 0) {
-        bool status = follow(username, input.substr(7), ire);
+        follow(username, input.substr(7), ire);
     }
     else if(input.rfind("UNFOLLOW", 0) == 0){
-        bool status = unfollow(username, &input[7]);
+        unfollow(username, &input[7], ire);
     }
     else if(input.rfind("LIST", 0) == 0){
-        //pair(<std::vector<std::string>, std::vector<std::string>) regUsers = listUser(username);
+        listUser(username, ire);
     }
     else{
 
