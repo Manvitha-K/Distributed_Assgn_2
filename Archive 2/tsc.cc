@@ -81,6 +81,7 @@ class Client : public IClient
             ClientContext context;
             Status status = stub_->registerUser(&context, request, &response);
             if(status.ok()){
+                std::cout << "successful " << std::endl;
                 return response.success();
             }
             else{
@@ -139,14 +140,19 @@ int Client::connectTo()
 	// ------------------------------------------------------------
     std::string ipaddr = hostname + ":" + port;
     std::string address(ipaddr);
+    std::cout << "in connect " << address << std::endl;
     channel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
     stub_ = socialnetwork::SocialNetwork::NewStub(channel);
+    std::cout << "stub successfully created\n";
+    registerUser(username);
+
     return 1; // return 1 if success, otherwise return -1
 }
 
 IReply Client::processCommand(std::string& input)
 {
     if (input.rfind("FOLLOW", 0) == 0) {
+        std::cout << input[7] << " " << "\n";
         bool status = follow(username, &input[7]);
     }
     else if(input.rfind("UNFOLLOW", 0) == 0){
