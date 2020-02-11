@@ -22,6 +22,7 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 		private:
 			sqlite3* Dbobj;
 			Db database;
+			std::vector<std::string> activeUsers;
 
 		public:
 			chatServiceImplementation():database(Dbobj){}
@@ -32,7 +33,17 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 			)override{
 				std::string userName = request->userid();
 				std::cout << "userName " << userName << "\n";
-				reply->set_success(database.registerUser(userName));
+				for(int i = 0; i < activeUsers.size(); i++){
+					if(activeUsers[i] == userName){
+						reply->set_status(1);
+						return Status::OK;
+					}
+				}
+				int dataBaseStatus = database.registerUser(userName);
+				if(dataBaseStatus == 0){
+					activeUsers.push_back(userName);
+				}
+				reply->set_success(dataBaseStatus);
 				return Status::OK;
 			}
 			
@@ -43,12 +54,13 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				)override{
 					std::string userName = request->userid();
 					std::vector<std::string> allUsersList = database.listAllUsers();
+					reply->set_status(0);
 					for(int i=0; i < allUsersList.size(); i++){
-   						reply->add_registeredusers(allUsersList[i]);
+   						reply->add_users(allUsersList[i]);
 					}
 					std::vector<std::string> followers = database.fetchAllFollowers(userName);
 					for(int i=0; i < followers.size(); i++){
-   						reply->add_followers(followers[i]);
+   						reply->add_following_users(followers[i]);
 					}
 					return Status::OK;
 			}
@@ -62,7 +74,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				std::cout << "followeeId " << followeeId << "\n";
 				std::cout << "followerId " << followerId << "\n";
 				
-				database.Follow(followeeId, followerId);
+				int retVal = database.Follow(followeeId, followerId);
+				reply->set_status(retVal);
 				return Status::OK; 
 			}
 			Status unfollow(
@@ -72,7 +85,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 			)override{
 				std::string followeeId = request->followee();
 				std::string followerId = request->follower();
-				database.unFollow(followeeId, followerId);
+				int retVal = database.unFollow(followeeId, followerId);
+				reply->set_status(retVal);
 				return Status::OK;
 			}
 

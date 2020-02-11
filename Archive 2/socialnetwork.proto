@@ -9,7 +9,7 @@ service SocialNetwork {
 }
 
 message reqResponse{
-    bool success = 1;
+    int status = 1;
 }
 
 message followersList {
@@ -17,8 +17,9 @@ message followersList {
 }
 
 message listResponse {
-  repeated string registeredusers = 1;
-  repeated string followers = 2;
+  int status = 1;
+  repeated string users = 2;
+  repeated string following_users = 3;
 }
 
 message user {

@@ -65,12 +65,11 @@ bool Db::checkUserExistence(std::string username){
     return exist;
 }
 
-bool Db::registerUser(std::string UserName){
+int Db::registerUser(std::string UserName){
     char* zErrMsg = 0;
-    createUsersTable();
     bool alreadyExists = checkUserExistence(UserName);
     if(alreadyExists == true){
-        return false;
+        return 1;
     }
     //sqlite3* db = openDataBaseConnection(db);
     Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
@@ -79,11 +78,13 @@ bool Db::registerUser(std::string UserName){
     int rc = sqlite3_exec(Db::DatabaseObj, sqlQuery.c_str(), NULL, 0, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
+        closeDataBaseConnection(Db::DatabaseObj);
+        return 5;
     }
     closeDataBaseConnection(Db::DatabaseObj);
-    createFollowersTable();
-    Follow(UserName, UserName);
-    return true;
+    int followRet = Follow(UserName, UserName);
+    return followRet;
+    //return 0;
 }
 
 static int fetchFollowersCallback(void* followersList, int colcount, char **data, char **ColName){
@@ -180,17 +181,17 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
     return follows;
 }
 
-bool Db::Follow(std::string user, std::string follows){
+int Db::Follow(std::string user, std::string follows){
     bool userExists = checkUserExistence(user);
     if(userExists == false){
-        return false;
+        return 3;
     }
     bool followsExists = checkUserExistence(follows);
     if(followsExists == false){
-        return false;
+        return 3;
     }
     bool following = checkAlreadyFollowing(user, follows);
-    std::cout << "following " << following << "\n";
+    //std::cout << "following " << following << "\n";
     if(following == false){
         std::cout << "creating follow relationship \n";
         char* zErrMsg = 0;
@@ -202,11 +203,22 @@ bool Db::Follow(std::string user, std::string follows){
             sqlite3_free(zErrMsg);
         }
         closeDataBaseConnection(db);
+        return 0;
     }
-    return true;
+    else{
+        return 1;
+    }
 }
 
-bool Db::unFollow(std::string user, std::string follows){
+int Db::unFollow(std::string user, std::string follows){
+    bool userExists = checkUserExistence(user);
+    if(userExists == false){
+        return 3;
+    }
+    bool followsExists = checkUserExistence(follows);
+    if(followsExists == false){
+        return 3;
+    }
     bool following = checkAlreadyFollowing(user, follows);
     if(following == true){
         char* zErrMsg = 0;
@@ -218,7 +230,9 @@ bool Db::unFollow(std::string user, std::string follows){
             sqlite3_free(zErrMsg);
         }
         closeDataBaseConnection(db); 
-        return true;
+        return 0;
     }
-    return false;
+    else{
+        return 2;
+    }
 }
