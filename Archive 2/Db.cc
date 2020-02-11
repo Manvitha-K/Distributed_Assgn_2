@@ -28,7 +28,7 @@ std::vector<std::string> Db::listAllUsers(){
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
     //Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
-    Db::userList.clear();
+    //Db::userList.clear();
     if(!db){
         return userList;
     } 
