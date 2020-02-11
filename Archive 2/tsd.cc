@@ -35,18 +35,22 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				return Status::OK;
 			}
 			
-			/*Status listUser(
+			Status listUser(
 				ServerContext* context,
 				const user* request,
 				listResponse* reply
-				){
+				)override{
 					std::string userName = request->userid();
 					std::vector<std::string> allUsersList = database.listAllUsers();
-					reply->set_registeredusers(allUsersList);
+					for(int i=0; i < allUsersList.size(); i++){
+   						reply->add_registeredusers(allUsersList[i]);
+					}
 					std::vector<std::string> followers = database.fetchAllFollowers(userName);
-					reply->set_followers(followers);
+					for(int i=0; i < followers.size(); i++){
+   						reply->add_followers(followers[i]);
+					}
 					return Status::OK;
-			}*/
+			}
 			Status follow(
 				ServerContext* context,
 				const followRequest* request,

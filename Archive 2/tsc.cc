@@ -60,7 +60,7 @@ class Client : public IClient
                 return -1;
             }
         }
-        std::pair <std::vector<std::string>, std::vector<std::string>> listUser(std::string username){
+        /*std::pair <std::vector<std::string>, std::vector<std::string>> listUser(std::string username){
             user request;
             request.set_userid(username);
             listResponse response;
@@ -72,8 +72,8 @@ class Client : public IClient
             else{
                 std::cout << status.error_code() << ": " << status.error_message() << std::endl;
                 return std::make_pair(NULL, NULL);
-            }
-        }
+            } 
+        }*/
         bool registerUser(std::string username){
             user request;
             request.set_userid(username);
@@ -97,20 +97,7 @@ class Client : public IClient
         std::string username;
         std::string port;
         std::unique_ptr<SocialNetwork::Stub> stub_;
-
-
-    void run_client() {
-        std::string ipaddr = hostname + ":" + port;
-        std::string address(ipaddr);
-        Client client(
-            grpc::CreateChannel(
-            address, 
-            grpc::InsecureChannelCredentials()
-            )
-        );
-
-    
-    }
+        std::shared_ptr<Channel> channel;
 };
 
 int main(int argc, char** argv) {
@@ -150,20 +137,23 @@ int Client::connectTo()
     // a member variable in your own Client class.
     // Please refer to gRpc tutorial how to create a stub.
 	// ------------------------------------------------------------
-
+    std::string ipaddr = hostname + ":" + port;
+    std::string address(ipaddr);
+    channel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
+    stub_ = socialnetwork::SocialNetwork::NewStub(channel);
     return 1; // return 1 if success, otherwise return -1
 }
 
 IReply Client::processCommand(std::string& input)
 {
     if (input.rfind("FOLLOW", 0) == 0) {
-        bool status = follow();
+        bool status = follow(username, &input[7]);
     }
     else if(input.rfind("UNFOLLOW", 0) == 0){
-        bool status = unfollow();
+        bool status = unfollow(username, &input[7]);
     }
     else if(input.rfind("LIST", 0) == 0){
-
+        //pair(<std::vector<std::string>, std::vector<std::string>) regUsers = listUser(username);
     }
     else{
 
