@@ -89,10 +89,10 @@ class Client : public IClient
                 if(response.status() == 0){
                     ire.comm_status = SUCCESS;
                     for(int i= 0; i < response.users_size(); i++){
-                        ire.all_users.push_back(response.users[i]);
+                        ire.all_users.push_back(response.users(i));
                     }
-                    for(int i = 0; i < response.followers_size; i++){
-                        ire.following_users.push_back(response.following_users[i]);
+                    for(int i = 0; i < response.following_users_size(); i++){
+                        ire.following_users.push_back(response.following_users(i));
                     }
                     
                 } 
