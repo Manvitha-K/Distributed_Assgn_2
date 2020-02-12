@@ -36,12 +36,14 @@ namespace protobuf_socialnetwork_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[6];
+  static const ::google::protobuf::internal::ParseTable schema[7];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
 };
 void AddDescriptors();
+void InitDefaultstimelineResponseImpl();
+void InitDefaultstimelineResponse();
 void InitDefaultsreqResponseImpl();
 void InitDefaultsreqResponse();
 void InitDefaultsfollowersListImpl();
@@ -55,6 +57,7 @@ void InitDefaultsfollowRequest();
 void InitDefaultsstatusImpl();
 void InitDefaultsstatus();
 inline void InitDefaults() {
+  InitDefaultstimelineResponse();
   InitDefaultsreqResponse();
   InitDefaultsfollowersList();
   InitDefaultslistResponse();
@@ -79,6 +82,9 @@ extern reqResponseDefaultTypeInternal _reqResponse_default_instance_;
 class status;
 class statusDefaultTypeInternal;
 extern statusDefaultTypeInternal _status_default_instance_;
+class timelineResponse;
+class timelineResponseDefaultTypeInternal;
+extern timelineResponseDefaultTypeInternal _timelineResponse_default_instance_;
 class user;
 class userDefaultTypeInternal;
 extern userDefaultTypeInternal _user_default_instance_;
@@ -86,6 +92,121 @@ extern userDefaultTypeInternal _user_default_instance_;
 namespace socialnetwork {
 
 // ===================================================================
+
+class timelineResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:socialnetwork.timelineResponse) */ {
+ public:
+  timelineResponse();
+  virtual ~timelineResponse();
+
+  timelineResponse(const timelineResponse& from);
+
+  inline timelineResponse& operator=(const timelineResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  timelineResponse(timelineResponse&& from) noexcept
+    : timelineResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline timelineResponse& operator=(timelineResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const timelineResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const timelineResponse* internal_default_instance() {
+    return reinterpret_cast<const timelineResponse*>(
+               &_timelineResponse_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    0;
+
+  void Swap(timelineResponse* other);
+  friend void swap(timelineResponse& a, timelineResponse& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline timelineResponse* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  timelineResponse* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const timelineResponse& from);
+  void MergeFrom(const timelineResponse& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(timelineResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated string updates = 1;
+  int updates_size() const;
+  void clear_updates();
+  static const int kUpdatesFieldNumber = 1;
+  const ::std::string& updates(int index) const;
+  ::std::string* mutable_updates(int index);
+  void set_updates(int index, const ::std::string& value);
+  #if LANG_CXX11
+  void set_updates(int index, ::std::string&& value);
+  #endif
+  void set_updates(int index, const char* value);
+  void set_updates(int index, const char* value, size_t size);
+  ::std::string* add_updates();
+  void add_updates(const ::std::string& value);
+  #if LANG_CXX11
+  void add_updates(::std::string&& value);
+  #endif
+  void add_updates(const char* value);
+  void add_updates(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& updates() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_updates();
+
+  // @@protoc_insertion_point(class_scope:socialnetwork.timelineResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> updates_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_socialnetwork_2eproto::TableStruct;
+  friend void ::protobuf_socialnetwork_2eproto::InitDefaultstimelineResponseImpl();
+};
+// -------------------------------------------------------------------
 
 class reqResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:socialnetwork.reqResponse) */ {
  public:
@@ -122,7 +243,7 @@ class reqResponse : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_reqResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    0;
+    1;
 
   void Swap(reqResponse* other);
   friend void swap(reqResponse& a, reqResponse& b) {
@@ -221,7 +342,7 @@ class followersList : public ::google::protobuf::Message /* @@protoc_insertion_p
                &_followersList_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    1;
+    2;
 
   void Swap(followersList* other);
   friend void swap(followersList& a, followersList& b) {
@@ -336,7 +457,7 @@ class listResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_listResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    2;
+    3;
 
   void Swap(listResponse* other);
   friend void swap(listResponse& a, listResponse& b) {
@@ -481,7 +602,7 @@ class user : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
                &_user_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    3;
+    4;
 
   void Swap(user* other);
   friend void swap(user& a, user& b) {
@@ -588,7 +709,7 @@ class followRequest : public ::google::protobuf::Message /* @@protoc_insertion_p
                &_followRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    4;
+    5;
 
   void Swap(followRequest* other);
   friend void swap(followRequest& a, followRequest& b) {
@@ -710,7 +831,7 @@ class status : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
                &_status_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    5;
+    6;
 
   void Swap(status* other);
   friend void swap(status& a, status& b) {
@@ -789,6 +910,79 @@ class status : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// timelineResponse
+
+// repeated string updates = 1;
+inline int timelineResponse::updates_size() const {
+  return updates_.size();
+}
+inline void timelineResponse::clear_updates() {
+  updates_.Clear();
+}
+inline const ::std::string& timelineResponse::updates(int index) const {
+  // @@protoc_insertion_point(field_get:socialnetwork.timelineResponse.updates)
+  return updates_.Get(index);
+}
+inline ::std::string* timelineResponse::mutable_updates(int index) {
+  // @@protoc_insertion_point(field_mutable:socialnetwork.timelineResponse.updates)
+  return updates_.Mutable(index);
+}
+inline void timelineResponse::set_updates(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:socialnetwork.timelineResponse.updates)
+  updates_.Mutable(index)->assign(value);
+}
+#if LANG_CXX11
+inline void timelineResponse::set_updates(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:socialnetwork.timelineResponse.updates)
+  updates_.Mutable(index)->assign(std::move(value));
+}
+#endif
+inline void timelineResponse::set_updates(int index, const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  updates_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:socialnetwork.timelineResponse.updates)
+}
+inline void timelineResponse::set_updates(int index, const char* value, size_t size) {
+  updates_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:socialnetwork.timelineResponse.updates)
+}
+inline ::std::string* timelineResponse::add_updates() {
+  // @@protoc_insertion_point(field_add_mutable:socialnetwork.timelineResponse.updates)
+  return updates_.Add();
+}
+inline void timelineResponse::add_updates(const ::std::string& value) {
+  updates_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:socialnetwork.timelineResponse.updates)
+}
+#if LANG_CXX11
+inline void timelineResponse::add_updates(::std::string&& value) {
+  updates_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:socialnetwork.timelineResponse.updates)
+}
+#endif
+inline void timelineResponse::add_updates(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  updates_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:socialnetwork.timelineResponse.updates)
+}
+inline void timelineResponse::add_updates(const char* value, size_t size) {
+  updates_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:socialnetwork.timelineResponse.updates)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+timelineResponse::updates() const {
+  // @@protoc_insertion_point(field_list:socialnetwork.timelineResponse.updates)
+  return updates_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+timelineResponse::mutable_updates() {
+  // @@protoc_insertion_point(field_mutable_list:socialnetwork.timelineResponse.updates)
+  return &updates_;
+}
+
+// -------------------------------------------------------------------
+
 // reqResponse
 
 // int32 status = 1;
@@ -1261,6 +1455,8 @@ inline void status::set_allocated_reply(::std::string* reply) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

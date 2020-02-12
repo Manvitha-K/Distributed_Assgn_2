@@ -96,8 +96,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 							const user* request,
 							timelineResponse* reply
 			)override{
-				std::string userId = request->userid;
-				database.fetchTimeLine(userId);
+				std::string userId = request->userid();
+				//database.fetchTimeLine(userId);
 				return Status::OK;
 			}
 
