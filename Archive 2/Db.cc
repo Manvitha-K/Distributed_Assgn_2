@@ -27,6 +27,7 @@ static int fetchUsersCallback(void* userList, int colcount, char **data, char **
     //std::cout << data[0] << "\n";
     //Db::users = static_cast<std::vector<std::string>*> (userList);
     users->push_back(data[0]);
+    return 0;
 }
 
 std::vector<std::string> Db::listAllUsers(){
@@ -99,6 +100,7 @@ static int fetchFollowersCallback(void* followersList, int colcount, char **data
     std::vector<std::string>* followers = (std::vector<std::string>*) followersList;
     std::cout << "followers " << data[0] << "\n";
     followers->push_back(data[0]);
+	return 0;
 }
 
 std::vector<std::string> Db::fetchAllFollowers(std::string UserName){
