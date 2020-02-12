@@ -54,6 +54,7 @@ std::vector<std::string> Db::listAllUsers(){
 static int checkUserExistenceCallback(void* existence, int colcount, char **data, char **ColName){
     bool* exist = (bool*) existence;
     *exist = true;
+    return 0;
 }
 
 
@@ -128,6 +129,7 @@ std::vector<std::string> Db::fetchAllFollowers(std::string UserName){
 static int fetchFollowingCallback(void* followingList, int colcount, char **data, char **ColName){
     std::vector<std::string>* followees = (std::vector<std::string>*) followingList;
     (*followees).push_back(data[1]);
+    return 0;
 }
 
 std::vector<std::string> Db::followingList(std::string UserName){
@@ -177,6 +179,7 @@ void Db::createFollowersTable(){
 static int checkAlreadyFollowingCallback(void* follows, int colcount, char **data, char **ColName){
     bool* follow = (bool*) follows;
     *follow = true;
+    return 0;
 }
 
 bool Db::checkAlreadyFollowing(std::string user, std::string followee){
@@ -201,12 +204,13 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
 
 int Db::Follow(std::string user, std::string follows){
     std::cout << "follow relationship invoked\n";
-    bool userExists = checkUserExistence(user);
+    /*bool userExists = checkUserExistence(user);
     if(userExists == false){
         return 3;
-    }
+    }*/
     bool followsExists = checkUserExistence(follows);
     if(followsExists == false){
+        std::cout << "follows doesn't exist\n"; 
         return 3;
     }
     bool following = checkAlreadyFollowing(user, follows);
