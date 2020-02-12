@@ -234,22 +234,25 @@ int Db::Follow(std::string user, std::string follows){
 }
 
 int Db::unFollow(std::string user, std::string follows){
-    bool userExists = checkUserExistence(user);
+    /*bool userExists = checkUserExistence(user);
     if(userExists == false){
         return 3;
-    }
+    }*/
+    std::cout << "user " << user << " follows " << follows <<"\n";
     bool followsExists = checkUserExistence(follows);
     if(followsExists == false){
-        return 3;
+        std::cout << "No exist \n";
+	return 3;
     }
-    if(user == follows){
-        return 3;
+    if(user.compare(follows)==0){
+        std::cout << "same user \n";
+	return 3;
     }
     bool following = checkAlreadyFollowing(user, follows);
     if(following == true){
         char* zErrMsg = 0;
         sqlite3* db = openDataBaseConnection(db);
-        std::string sqlQuery =  "DELETE FROM FOLLOWERS WHERE NAME = +\"" +user + "\" +  \
+        std::string sqlQuery =  "DELETE FROM FOLLOWERS WHERE NAME = \"" +user + "\"   \
                             AND FOLLOWS = + \"" + follows + "\";";
         int rc = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK){
@@ -259,6 +262,6 @@ int Db::unFollow(std::string user, std::string follows){
         return 0;
     }
     else{
-        return 2;
+        return 3;
     }
 }

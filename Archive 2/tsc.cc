@@ -44,9 +44,9 @@ class Client : public IClient
                     ire.comm_status = SUCCESS;
                 }
                 else if(response.status() == 1){
-                    ire.comm_status = FAILURE_NOT_EXISTS;
+                    ire.comm_status = FAILURE_ALREADY_EXISTS;
                 }
-                else if(response.status() == 2){
+                else if(response.status() == 3){
                     ire.comm_status = FAILURE_INVALID_USERNAME;
                 } 
             }
@@ -67,9 +67,9 @@ class Client : public IClient
                     ire.comm_status = SUCCESS;
                 }
                 else if(response.status() == 1){
-                    ire.comm_status = FAILURE_NOT_EXISTS;
+                    ire.comm_status = FAILURE_ALREADY_EXISTS;
                 }
-                else if(response.status() == 2){
+                else if(response.status() == 3){
                     ire.comm_status = FAILURE_INVALID_USERNAME;
                 }    
             }
@@ -184,7 +184,7 @@ IReply Client::processCommand(std::string& input)
         follow(username, input.substr(7), ire);
     }
     else if(input.rfind("UNFOLLOW", 0) == 0){
-        unfollow(username, &input[7], ire);
+        unfollow(username, &input[9], ire);
     }
     else if(input.rfind("LIST", 0) == 0){
         listUser(username, ire);
