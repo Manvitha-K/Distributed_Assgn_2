@@ -38,6 +38,10 @@ std::vector<std::string> Db::listAllUsers(){
     std::string sqlQuery = "SELECT * from USERS;";
     std::vector<std::string> userList;
     int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, &userList, &zErrMsg);
+    std::cout << "current users in the system \n";
+    for(int i = 0; i < userList.size(); i++){
+        std::cout << userList[i] << "\n";
+    }
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
@@ -69,6 +73,7 @@ int Db::registerUser(std::string UserName){
     char* zErrMsg = 0;
     bool alreadyExists = checkUserExistence(UserName);
     if(alreadyExists == true){
+        std::cout << "User Already Exists \n";
         return 1;
     }
     //sqlite3* db = openDataBaseConnection(db);
@@ -95,6 +100,7 @@ static int fetchFollowersCallback(void* followersList, int colcount, char **data
 }
 
 std::vector<std::string> Db::fetchAllFollowers(std::string UserName){
+    std::cout << "Fetching all followers\n";
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
     std::vector<std::string> followersList;
@@ -105,6 +111,9 @@ std::vector<std::string> Db::fetchAllFollowers(std::string UserName){
     int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, (void *)&followersList, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
+    }
+    for(int i = 0; i < followersList.size(); i++){
+        std::cout << followersList[i] << "\n";
     }
     closeDataBaseConnection(db);
     return followersList;
@@ -122,6 +131,7 @@ std::vector<std::string> Db::followingList(std::string UserName){
     if(!db){
         return followeesList;
     } 
+    std::cout << "Extracting follows list of " << UserName << "\n";
     std::string sqlQuery = "SELECT * from FOLLOWERS WHERE NAME = \""+UserName+ "\";";
     int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, (void *)&followeesList, &zErrMsg);
     if (rc != SQLITE_OK){
