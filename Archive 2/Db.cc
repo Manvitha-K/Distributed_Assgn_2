@@ -33,14 +33,13 @@ std::vector<std::string> Db::listAllUsers(){
     char* zErrMsg = 0;
     //sqlite3* db = openDataBaseConnection(db);
     Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
-    Db::userList.clear();
+    std::vector<std::string> userList;
     if(!Db::DatabaseObj){
         return userList;
     } 
     std::string sqlQuery = "SELECT * from USERS;";
-    std::vector<std::string> userList;
     int rc = sqlite3_exec(Db::DatabaseObj, sqlQuery.c_str(), fetchUsersCallback, &userList, &zErrMsg);
-    std::cout << "current users in the system \n";
+    std::cout << "current users in the system" << userList.size() << "\n";
     for(int i = 0; i < userList.size(); i++){
         std::cout << userList[i] << "\n";
     }
@@ -48,7 +47,7 @@ std::vector<std::string> Db::listAllUsers(){
         sqlite3_free(zErrMsg);
     }
     closeDataBaseConnection(Db::DatabaseObj);
-    return Db::userList;
+    return userList;
 }
 
 static int checkUserExistenceCallback(void* existence, int colcount, char **data, char **ColName){
@@ -98,26 +97,29 @@ int Db::registerUser(std::string UserName){
 
 static int fetchFollowersCallback(void* followersList, int colcount, char **data, char **ColName){
     std::vector<std::string>* followers = (std::vector<std::string>*) followersList;
-    (*followers).push_back(data[0]);
+    std::cout << "followers " << data[0] << "\n";
+    followers->push_back(data[0]);
 }
 
 std::vector<std::string> Db::fetchAllFollowers(std::string UserName){
-    std::cout << "Fetching all followers\n";
+    
     char* zErrMsg = 0;
-    sqlite3* db = openDataBaseConnection(db);
+    //sqlite3* db = openDataBaseConnection(db);
+    Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
     std::vector<std::string> followersList;
-    if(!db){
+    if(!Db::DatabaseObj){
         return followersList;
     } 
     std::string sqlQuery ="SELECT * from FOLLOWERS WHERE FOLLOWS =\"" + UserName + "\";";
-    int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchFollowersCallback, (void *)&followersList, &zErrMsg);
+    int rc = sqlite3_exec(Db::DatabaseObj, sqlQuery.c_str(), fetchFollowersCallback, (void *)&followersList, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
+    std::cout << "Fetching all followers " << followersList.size() << "\n";
     for(int i = 0; i < followersList.size(); i++){
         std::cout << followersList[i] << "\n";
     }
-    closeDataBaseConnection(db);
+    closeDataBaseConnection(Db::DatabaseObj);
     return followersList;
 }
 
