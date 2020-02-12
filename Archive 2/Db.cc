@@ -47,7 +47,7 @@ std::vector<std::string> Db::listAllUsers(){
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
-    closeDataBaseConnection(db);
+    closeDataBaseConnection(Db::DatabaseObj);
     return Db::userList;
 }
 

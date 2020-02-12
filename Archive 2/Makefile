@@ -54,7 +54,7 @@ tsd: socialnetwork.pb.o socialnetwork.grpc.pb.o sqlite3.o Db.o tsd.o
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h tsc tsd
+	rm -f *.o *.pb.cc *.pb.h tsc tsd *.db
 
 
 # The following is to test your system and ensure a smoother experience.
