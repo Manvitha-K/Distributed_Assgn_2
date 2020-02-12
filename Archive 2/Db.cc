@@ -76,7 +76,6 @@ int Db::registerUser(std::string UserName){
     char* zErrMsg = 0;
     bool alreadyExists = checkUserExistence(UserName);
     if(alreadyExists == true){
-        std::cout << "User Already Exists \n";
         return 1;
     }
     sqlite3* db = openDataBaseConnection(db);
@@ -90,16 +89,16 @@ int Db::registerUser(std::string UserName){
         return 5;
     }
     closeDataBaseConnection(db);
-    std::cout << "user added to table\n";
+    //std::cout << "user added to table\n";
     int followRet = Follow(UserName, UserName);
-    std::cout << "followRet value " << followRet << "\n";
+    //std::cout << "followRet value " << followRet << "\n";
     return followRet;
     //return 0;
 }
 
 static int fetchFollowersCallback(void* followersList, int colcount, char **data, char **ColName){
     std::vector<std::string>* followers = (std::vector<std::string>*) followersList;
-    std::cout << "followers " << data[0] << "\n";
+    //std::cout << "followers " << data[0] << "\n";
     followers->push_back(data[0]);
 	return 0;
 }
@@ -118,10 +117,10 @@ std::vector<std::string> Db::fetchAllFollowers(std::string UserName){
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
-    std::cout << "Fetching all followers " << followersList.size() << "\n";
+    /*std::cout << "Fetching all followers " << followersList.size() << "\n";
     for(int i = 0; i < followersList.size(); i++){
         std::cout << followersList[i] << "\n";
-    }
+    }*/
     closeDataBaseConnection(Db::DatabaseObj);
     return followersList;
 }
@@ -139,7 +138,7 @@ std::vector<std::string> Db::followingList(std::string UserName){
     if(!db){
         return followeesList;
     } 
-    std::cout << "Extracting follows list of " << UserName << "\n";
+    //std::cout << "Extracting follows list of " << UserName << "\n";
     std::string sqlQuery = "SELECT * from FOLLOWERS WHERE NAME = \""+UserName+ "\";";
     int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchFollowingCallback, (void *)&followeesList, &zErrMsg);
     if (rc != SQLITE_OK){
@@ -186,10 +185,10 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
     bool follows = false;
     char* zErrMsg = 0;
     sqlite3* db = openDataBaseConnection(db);
-    std::cout << "In checking phase\n";
+    //std::cout << "In checking phase\n";
     std::vector<std::string> followeesList;
     if(db){
-        std::cout << "DB successful open\n";
+        //std::cout << "DB successful open\n";
         std::string sqlQuery = "SELECT * from FOLLOWERS WHERE NAME = \""+ user + "\" \
                                             AND FOLLOWS = \"" + followee +"\";";
         int rc = sqlite3_exec(db, sqlQuery.c_str(), checkAlreadyFollowingCallback, (void *)&follows, &zErrMsg);
@@ -198,25 +197,25 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
         }
         closeDataBaseConnection(db);
     }
-    std::cout << "DB Close\n";
+    //std::cout << "DB Close\n";
     return follows;
 }
 
 int Db::Follow(std::string user, std::string follows){
-    std::cout << "follow relationship invoked\n";
+    //std::cout << "follow relationship invoked\n";
     /*bool userExists = checkUserExistence(user);
     if(userExists == false){
         return 3;
     }*/
     bool followsExists = checkUserExistence(follows);
     if(followsExists == false){
-        std::cout << "follows doesn't exist\n"; 
+        //std::cout << "follows doesn't exist\n"; 
         return 3;
     }
     bool following = checkAlreadyFollowing(user, follows);
     //std::cout << "following " << following << "\n";
     if(following == false){
-        std::cout << "creating follow relationship \n";
+        //std::cout << "creating follow relationship \n";
         char* zErrMsg = 0;
         sqlite3* db = openDataBaseConnection(db);
         std::string sqlQuery = "INSERT INTO FOLLOWERS (NAME,FOLLOWS) \
@@ -238,15 +237,15 @@ int Db::unFollow(std::string user, std::string follows){
     if(userExists == false){
         return 3;
     }*/
-    std::cout << "user " << user << " follows " << follows <<"\n";
+    //std::cout << "user " << user << " follows " << follows <<"\n";
     bool followsExists = checkUserExistence(follows);
     if(followsExists == false){
-        std::cout << "No exist \n";
-	return 3;
+        //std::cout << "No exist \n";
+	    return 3;
     }
     if(user.compare(follows)==0){
-        std::cout << "same user \n";
-	return 3;
+        //std::cout << "same user \n";
+	    return 3;
     }
     bool following = checkAlreadyFollowing(user, follows);
     if(following == true){

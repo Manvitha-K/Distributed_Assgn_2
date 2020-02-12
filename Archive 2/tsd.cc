@@ -36,13 +36,13 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				std::cout << "userName " << userName << "\n";
 				for(int i = 0; i < activeUsers.size(); i++){
 					if(activeUsers[i] == userName){
-						std::cout << "ALREADY EXISTS\n";
+						//std::cout << "ALREADY EXISTS\n";
 						reply->set_status(1);
 						return Status::OK;
 					}
 				}
 				int dataBaseStatus = database.registerUser(userName);
-				std::cout << "ADDED TO DATABASE\n";
+				//std::cout << "ADDED TO DATABASE\n";
 				if(dataBaseStatus == 0){
 					activeUsers.push_back(userName);
 				}
@@ -74,8 +74,8 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 			)override{
 				std::string followeeId = request->followee();
 				std::string followerId = request->follower();
-				std::cout << "followeeId " << followeeId << "\n";
-				std::cout << "followerId " << followerId << "\n";
+				//std::cout << "followeeId " << followeeId << "\n";
+				//std::cout << "followerId " << followerId << "\n";
 				
 				int retVal = database.Follow(followeeId, followerId);
 				reply->set_status(retVal);
