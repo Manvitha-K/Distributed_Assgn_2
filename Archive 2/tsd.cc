@@ -17,6 +17,7 @@ using socialnetwork::followRequest;
 using socialnetwork::status;
 using socialnetwork::user;
 using socialnetwork::listResponse;
+using socialnetwork::timelineResponse;
 
 class chatServiceImplementation final: public SocialNetwork::Service{
 		private:
