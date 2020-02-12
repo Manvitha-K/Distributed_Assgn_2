@@ -24,6 +24,8 @@ void closeDataBaseConnection(sqlite3* db){
 
 static int fetchUsersCallback(void* userList, int colcount, char **data, char **ColName){
     std::vector<std::string>* users = static_cast<std::vector<std::string>*> (userList);
+    std::cout << data[0] << "\n";
+    //Db::users = static_cast<std::vector<std::string>*> (userList);
     users->push_back(data[0]);
 }
 
