@@ -82,7 +82,9 @@ int Db::registerUser(std::string UserName){
         return 5;
     }
     closeDataBaseConnection(Db::DatabaseObj);
+    std::cout << "user added to table\n";
     int followRet = Follow(UserName, UserName);
+    std::cout << "followRet value " << followRet << "\n";
     return followRet;
     //return 0;
 }
@@ -182,6 +184,7 @@ bool Db::checkAlreadyFollowing(std::string user, std::string followee){
 }
 
 int Db::Follow(std::string user, std::string follows){
+    std::cout << "follow relationship invoked\n";
     bool userExists = checkUserExistence(user);
     if(userExists == false){
         return 3;
