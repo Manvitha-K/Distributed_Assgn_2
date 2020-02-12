@@ -15,6 +15,7 @@ class Db{
         sqlite3* DatabaseObj;
         Db(sqlite3* db);
         std::vector<std::string> userList;
+        std::vector<std::string>* users;
         bool dataBaseCreation();
         void createUsersTable();
         void createFollowersTable();
@@ -30,5 +31,7 @@ class Db{
         
         bool checkUserExistence(std::string UserName);
         bool checkAlreadyFollowing(std::string user, std::string followee);
+
+        void fetchTimeLine(std::string user);
 };
 #endif

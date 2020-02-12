@@ -91,6 +91,14 @@ class chatServiceImplementation final: public SocialNetwork::Service{
 				reply->set_status(retVal);
 				return Status::OK;
 			}
+			Status timeline(ServerContext* context,
+							const user* request,
+							timelineResponse* reply
+			)override{
+				std::string userId = request->userid;
+				database.fetchTimeLine(userId);
+				return Status::OK;
+			}
 
 };
 
