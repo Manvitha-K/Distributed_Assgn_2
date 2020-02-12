@@ -77,17 +77,17 @@ int Db::registerUser(std::string UserName){
         std::cout << "User Already Exists \n";
         return 1;
     }
-    //sqlite3* db = openDataBaseConnection(db);
-    Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
+    sqlite3* db = openDataBaseConnection(db);
+    //Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
     std::string sqlQuery = "INSERT INTO USERS (NAME) " \
                       "VALUES(\""+ UserName + "\");";
-    int rc = sqlite3_exec(Db::DatabaseObj, sqlQuery.c_str(), NULL, 0, &zErrMsg);
+    int rc = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
-        closeDataBaseConnection(Db::DatabaseObj);
+        closeDataBaseConnection(db);
         return 5;
     }
-    closeDataBaseConnection(Db::DatabaseObj);
+    closeDataBaseConnection(db);
     std::cout << "user added to table\n";
     int followRet = Follow(UserName, UserName);
     std::cout << "followRet value " << followRet << "\n";
