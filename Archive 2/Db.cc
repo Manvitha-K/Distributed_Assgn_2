@@ -24,29 +24,29 @@ void closeDataBaseConnection(sqlite3* db){
 
 static int fetchUsersCallback(void* userList, int colcount, char **data, char **ColName){
     std::vector<std::string>* users = static_cast<std::vector<std::string>*> (userList);
-    std::cout << data[0] << "\n";
+    //std::cout << data[0] << "\n";
     //Db::users = static_cast<std::vector<std::string>*> (userList);
     users->push_back(data[0]);
 }
 
 std::vector<std::string> Db::listAllUsers(){
     char* zErrMsg = 0;
-    //sqlite3* db = openDataBaseConnection(db);
-    Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
+    sqlite3* db = openDataBaseConnection(db);
+    //Db::DatabaseObj = openDataBaseConnection(Db::DatabaseObj);
     std::vector<std::string> userList;
-    if(!Db::DatabaseObj){
+    if(!db){
         return userList;
     } 
     std::string sqlQuery = "SELECT * from USERS;";
-    int rc = sqlite3_exec(Db::DatabaseObj, sqlQuery.c_str(), fetchUsersCallback, &userList, &zErrMsg);
-    std::cout << "current users in the system" << userList.size() << "\n";
+    int rc = sqlite3_exec(db, sqlQuery.c_str(), fetchUsersCallback, &userList, &zErrMsg);
+    std::cout << "current users in the system " << userList.size() << "\n";
     for(int i = 0; i < userList.size(); i++){
         std::cout << userList[i] << "\n";
     }
     if (rc != SQLITE_OK){
         sqlite3_free(zErrMsg);
     }
-    closeDataBaseConnection(Db::DatabaseObj);
+    closeDataBaseConnection(db);
     return userList;
 }
 
@@ -234,6 +234,9 @@ int Db::unFollow(std::string user, std::string follows){
     }
     bool followsExists = checkUserExistence(follows);
     if(followsExists == false){
+        return 3;
+    }
+    if(user == follows){
         return 3;
     }
     bool following = checkAlreadyFollowing(user, follows);

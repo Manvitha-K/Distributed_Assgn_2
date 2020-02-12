@@ -6,6 +6,11 @@ service SocialNetwork {
   rpc unfollow (followRequest) returns (reqResponse){}
   rpc listUser (user) returns (listResponse) {}
   rpc registerUser (user) returns (reqResponse) {}
+  rpc timeline (user) returns (timelineResponse) {}
+}
+
+message timelineResponse{
+  repeated string updates = 1;
 }
 
 message reqResponse{
